@@ -14,8 +14,13 @@ def handler(message):
         #check if err
         if msgSplit[2] == "err":
             print("Error in " + msgSplit[1])
+
+        elif msgSplit[2] == "time":
+            # Clock
+            print("Time is ", msgSplit[3])
+
         else:
-            #Alarm
+            # Alarm
             if msgSplit[2] == "wakeup":
                 hwi.playSound(3)
                 hwi.speak("Alarm is ringing")
