@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd nsq/build
+
 echo "Starting lookup"
 
 ./nsqlookupd 
