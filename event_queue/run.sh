@@ -26,6 +26,9 @@ case $1 in
 		;;
 
 	build) 
+		echo "Updating apt-get"
+		sudo apt-get update
+		
 		echo "Installing golang"
 		sudo apt-get install golang
 
