@@ -16,4 +16,4 @@ sleep 1
 
 echo "Starting nsq"
 
-./nsqd -lookupd-tcp-address localhost:4160 > /tmp/nsqd.log 2>&1 &
+./nsqd -broadcast-address 192.168.80.30 -lookupd-tcp-address localhost:4160 > /tmp/nsqd.log 2>&1 &
