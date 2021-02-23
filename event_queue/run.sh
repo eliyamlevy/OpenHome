@@ -14,7 +14,7 @@ case $1 in
 		sleep 1
 		echo "Starting nsq on $ip" 
 		./nsqd -broadcast-address $ip -lookupd-tcp-address localhost:4160 > /tmp/nsqd.log 2>&1 &
-
+		echo "Done!, you can run (tail -f /tmp/nsqd*.log) to view log output"
 		;; 
 
 	stop)
@@ -22,9 +22,10 @@ case $1 in
 			echo "Stopping $p"
 			killall -9 $p
 		done
+		echo "Done!"
 		;;
 
-	setup) 
+	build) 
 		echo "Installing golang"
 		sudo apt-get install golang
 
@@ -39,6 +40,8 @@ case $1 in
 
 		make
 		echo "done"
+
+		
 		;;
 
 	*)
