@@ -2,7 +2,8 @@ from HardwareInterface import HardwareInterface
 import nsq
 
 def handler(message):
-    print(message)
+    print(message.id)
+    print(message.body)
     return True
 
 if __name__ == '__main__':

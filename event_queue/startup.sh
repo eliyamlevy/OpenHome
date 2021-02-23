@@ -1,5 +1,7 @@
 #!/bin/bash
 
+read -p "Please enter IP address: " ip 
+
 cd nsq/build
 
 echo "Starting lookup"
@@ -14,6 +16,6 @@ echo "Starting admin"
 
 sleep 1
 
-echo "Starting nsq"
+echo "Starting nsq on $ip" 
 
-./nsqd -broadcast-address 192.168.80.30 -lookupd-tcp-address localhost:4160 > /tmp/nsqd.log 2>&1 &
+./nsqd -broadcast-address $ip -lookupd-tcp-address localhost:4160 > /tmp/nsqd.log 2>&1 &
