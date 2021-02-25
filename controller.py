@@ -17,7 +17,7 @@ def handler(message):
 
         elif msgSplit[2] == "time":
             # Clock
-            print("Time is ", msgSplit[3])
+            hwi.speak("Time is "+str(msgSplit[3]))
 
         else:
             # Alarm
