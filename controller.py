@@ -1,6 +1,7 @@
 from HardwareInterface import HardwareInterface
 import nsq
 import requests
+import json
 
 def handler(message):
     print(message.id)
@@ -9,9 +10,12 @@ def handler(message):
     msgSplit = str(message.body).split(" ")
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
-        topic = "alarm"
-        url = "http://127.0.0.1:4151/pub?topic=" + topic
-        msg = "cmd alarm setalarm 9:00"
+        cmd = json.loads(msgSplit[3])
+        url = "http://127.0.0.1:4151/pub?topic=" + cmd["context"]
+        msg = "cmd " + cmd["context"] + " " + cmd["intent"]
+        for arg in cmd["slots"]:
+            msg += " " + cmd["slots"][arg]
+        print(msg)
         x = requests.post(url, data = msg)
 
     elif msgSplit[0] == "resp":     #response from a service
