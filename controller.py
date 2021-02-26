@@ -10,7 +10,7 @@ def handler(message):
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
         topic = "alarm"
-        url = "http://127.0.0.1/pub?topic=" + topic
+        url = "http://127.0.0.1:4151/pub?topic=" + topic
         msg = "cmd alarm setalarm 9:00"
         x = requests.post(url, data = msg)
 
