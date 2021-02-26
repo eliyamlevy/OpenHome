@@ -13,8 +13,9 @@ def handler(message):
         cmd = json.loads(msgSplit[3])
         url = "http://127.0.0.1:4151/pub?topic=" + cmd["context"]
         msg = "cmd " + cmd["context"] + " " + cmd["intent"]
-        for arg in cmd["slots"]:
-            msg += " " + cmd["slots"][arg]
+        if "slots" in cmd:
+            for arg in cmd["slots"]:
+                msg += " " + cmd["slots"][arg]
         print(msg)
         x = requests.post(url, data = msg)
 
