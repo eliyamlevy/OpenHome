@@ -4,9 +4,16 @@ import requests
 import datetime
 import time
 
-functions = {"get_time": get_time,
-             "get_time_in_loc": get_time_in_loc,
-             "get_date": get_date}
+def respond(title, args):
+    strings = ["resp", "clock", title]
+    strings.append(args)
+    resp = '&'.join(strings)
+    requests.post('http://127.0.0.1:4151/pub?topic=test', data='xx' + resp + 'x')
+
+def error(message):
+    strings = ["resp", "clock", "err", message]
+    resp = '&'.join(strings)
+    requests.post('http://127.0.0.1:4151/pub?topic=test', data='xx' + resp + 'x')
 
 def get_time():
     curr_time = time.ctime().strftime('%I:%M %p')
@@ -20,16 +27,9 @@ def get_date():
     curr_date = time.ctime().strftime('%a %b %d %Y')
     respond("date", [curr_date])
 
-def respond(title, args):
-    strings = ["resp", "clock", title]
-    strings.append(args)
-    resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=test', data='xx' + resp + 'x')
-
-def error(message):
-    strings = ["resp", "clock", "err", message]
-    resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=test', data='xx' + resp + 'x')
+functions = {"get_time": get_time,
+             "get_time_in_loc": get_time_in_loc,
+             "get_date": get_date}
 
 def handler(message):
     print(message.id)
