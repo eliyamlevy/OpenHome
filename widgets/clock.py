@@ -1,30 +1,30 @@
 import nsq
 import time
 import requests
-import datetime
+from datetime import datetime
 import time
 
 def respond(title, args):
     strings = ["resp", "clock", title]
-    strings.append(args)
+    strings.extend(args)
     resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=test', data='xx' + resp + 'x')
+    requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
 
 def error(message):
     strings = ["resp", "clock", "err", message]
     resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=test', data='xx' + resp + 'x')
+    requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
 
 def get_time():
-    curr_time = time.ctime().strftime('%I:%M %p')
+    curr_time = datetime.now().strftime('%I:%M %p')
     respond("time", [curr_time])
 
 def get_time_in_loc(location):
-    curr_time = time.ctime().strftime('%I:%M %p')
+    curr_time = datetime.now().strftime('%I:%M %p')
     respond("time", [curr_time])
 
 def get_date():
-    curr_date = time.ctime().strftime('%a %b %d %Y')
+    curr_date = datetime.now().strftime('%a %b %d %Y')
     respond("date", [curr_date])
 
 functions = {"get_time": get_time,
