@@ -8,7 +8,7 @@ import json
 
 
 intents = {
-    'clock': [("get_time", []), ("get_time_in_loc",['Los Angeles']), ("get_date",[])],
+    'clock':[("get_time",[]),("get_time_in_loc",['Miami']),("get_date",[])],
 }
 
 
@@ -20,13 +20,13 @@ if __name__ == '__main__':
 
         args = random.choice(function)
 
-        sample_json = {
-                          "context": intent,
-                          "intent": args[0],
-                          "slots": args[1],
-        }
+        msg = [intent, args[0]]
 
-        command = "srm controller add_to_queue " + str(json.dumps(sample_json))
-        requests.post('http://127.0.0.1:4151/pub?topic=controller',data=args)
+	for arg in args[1]:
+		msg.append(arg)
+
+        command = "srm&controller&add_to_queue&" +"&".join(msg) 
+        requests.post('http://127.0.0.1:4151/pub?topic=controller',data=command)
+	print(command)
         print("I posted")
         time.sleep(7)

@@ -7,15 +7,15 @@ def handler(message):
     print(message.id)
     print(message.body)
 
-    msgSplit = str(message.body).split(" ")
+    msgSplit = str(message.body).split("&")
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
-        cmd = json.loads(msgSplit[3])
-        url = "http://127.0.0.1:4151/pub?topic=" + cmd["context"]
-        msg = "cmd " + cmd["context"] + " " + cmd["intent"]
-        if "slots" in cmd:
-            for arg in cmd["slots"]:
-                msg += " " + cmd["slots"][arg]
+        context = msgSplit[3]
+	intent = msgSplit[4]
+        url = "http://127.0.0.1:4151/pub?topic=" + context
+        msg = "cmd&" + context + "&" + intent
+        for arg in msgSplit[5:]:
+                msg += "&" + arg
         print(msg)
         x = requests.post(url, data = msg)
 
