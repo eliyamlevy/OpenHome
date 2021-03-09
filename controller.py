@@ -26,7 +26,7 @@ def handler(message):
         else:
             #Alarm
             if msgSplit[2] == "wakeup":
-                hwi.playSound(3)
+                hwi.playSound(1)
                 hwi.speak("Alarm is ringing")
 
     elif msgSplit[0] == "util":     #something to do with configs or hw settings
