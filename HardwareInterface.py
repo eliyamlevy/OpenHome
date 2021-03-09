@@ -12,7 +12,10 @@ class HardwareInterface:
     def playSound(self, sound):
         print("Playing sound " + str(sound))
         # Playing the converted file 
-        os.system("mpg321 " + self.sound_effects[sound])
+        if sound in self.sound_effects:
+            os.system("mpg321 " + self.sound_effects[sound])
+        else:
+            print("sound unavailable")
 
     #does text to speak on an inputted text
     def speak(self, text):
