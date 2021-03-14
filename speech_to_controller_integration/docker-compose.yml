@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+    rhasspy:
+        ports:
+            - '12101:12101'
+        network_mode: host
+        restart: unless-stopped
+        volumes:
+            - '$HOME/.config/rhasspy/profiles:/profiles'
+        devices:
+            - '/dev/snd:/dev/snd'
+        image: rhasspy/rhasspy
+        command: --user-profiles /profiles --profile en
+    node-red:
+        ports:
+            - '1880:1880'
+        volumes:
+            - 'node_rhasspy_flows:/data'
+        container_name: rhasspy_nodered
+        image: nodered/node-red
+volumes:
+    node_rhasspy_flows:
