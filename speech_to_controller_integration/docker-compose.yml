@@ -9,7 +9,7 @@ services:
             - '$HOME/.config/rhasspy/profiles:/profiles'
         devices:
             - '/dev/snd:/dev/snd'
-        image: rhasspy/rhasspy
+        image: charliepyle/openhome_rhasspy 
         command: --user-profiles /profiles --profile en
     node-red:
         ports:
@@ -18,6 +18,6 @@ services:
         volumes:
             - 'node_rhasspy_flows:/data'
         container_name: rhasspy_nodered
-        image: nodered/node-red
+        image: charliepyle/openhome_node-red 
 volumes:
     node_rhasspy_flows:
