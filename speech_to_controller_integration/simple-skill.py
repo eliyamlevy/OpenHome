@@ -43,5 +43,5 @@ client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_message = on_message
 
-client.connect("192.168.1.57", 1883)
+client.connect("localhost", 1883)
 client.loop_forever()
