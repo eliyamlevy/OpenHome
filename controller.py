@@ -7,7 +7,7 @@ def handler(message):
     print(message.id)
     print(message.body)
 
-    msgSplit = str(message.body).split("&")
+    msgSplit = str(message.body.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
         cmd = json.loads(msgSplit[3])
@@ -34,15 +34,11 @@ def handler(message):
         if msgSplit[2] == "err":
             print("Error in " + msgSplit[1])
 
-        elif msgSplit[2] == "time":
-            # Clock
-            hwi.speak("Time is "+str(msgSplit[3]))
-
-        else:
-            # Alarm
-            if msgSplit[2] == "wakeup":
-                hwi.playSound(1)
-                hwi.speak("Alarm is ringing")
+        elif msgSplit[2] == "speak":
+            hwi.speak(str(msgSplit[3]))
+            
+        elif msgSplit[2] == "sound":
+            hwi.playSound(1)
 
     elif msgSplit[0] == "util":     #something to do with configs or hw settings
         pass           
