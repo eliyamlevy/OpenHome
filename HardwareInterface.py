@@ -1,5 +1,6 @@
 from gtts import gTTS 
 import os
+import time
 
 class HardwareInterface:
 
@@ -37,6 +38,7 @@ class HardwareInterface:
         # welcome 
         myobj.save("sounds/say.mp3") 
 
+        time.sleep(.5)
         # Playing the converted file 
         os.system("mpg321 sounds/say.mp3") 
 
