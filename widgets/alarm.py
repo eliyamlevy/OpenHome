@@ -4,6 +4,7 @@ import datetime
 import database
 import threading
 import uuid
+import time
 
 def respond(title, args):
     strings = ["resp", "alarm", title]
@@ -74,7 +75,7 @@ def cancel_alarm(time):
             idx = row[0]
             break
 
-    if id == -1
+    if id == -1:
         return
 
     database.delete("alarm", id)
@@ -83,11 +84,11 @@ functions = {"set_alarm": set_alarm,
              "stop_alarm": stop_alarm,
              "snooze_alarm": snooze_alarm,
              "cancel_alarm": cancel_alarm,
-             "trigger_alarm": trigger_alarm,
              }
 
 def check_time():
     update_read_from_db = 0
+        
     db_list = database.read("alarm")
 
     while True:
@@ -95,22 +96,22 @@ def check_time():
             update_read_from_db = 0
             db_list = database.read("alarm")
 
-        curr_timestamp = datetime.datetime.now().timestamp()
-        for row in enumerate(db_list):
+        curr_timestamp = datetime.datetime.now()
+        for row in db_list:
             # row[0] is id
             # row[1] is timestamp
             # row[2] is running
             # row[3] is snooze count
             # row[4] is cancelled
-            time = datetime.fromtimestamp(alarm[1]) + (alarm[3] * datetime.timedelta(minutes=8))
-            if time < curr_timestamp and not row[2] and not row[4]:
-                new_row = row
-                new_row[2] = 1
-                database.update("alarm", new_row, row[0])
+            alarm_timestamp = datetime.datetime.fromtimestamp(int(float(row[1]))) + (int(row[3]) * datetime.timedelta(minutes=8))
+            if alarm_timestamp < curr_timestamp and int(row[2]) == 0 and int(row[4]) == 0:
+                print("Alarm trigger")
+                row[2] = 1
+                database.update("alarm", row, row[0])
                 
-                strings = ["cmd", "alarm", "sound"]
+                strings = ["resp", "alarm", "sound"]
                 resp = '&'.join(strings)
-                requests.post('http://127.0.0.1:4151/pub?topic=alarm', data=resp)
+                requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
             else:
                 continue
 
@@ -121,7 +122,7 @@ def handler(message):
     print(message.id)
     print(message.body)
 
-    msgSplit = str(message.body).split("&")
+    msgSplit = str(message.body.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
         args = ()
