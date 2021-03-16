@@ -27,14 +27,14 @@ def on_message(client, userdata, msg):
         # Intent and post to controller topic
         print("Got intent:", nlu_payload["intent"]["intentName"])
 	string = 'http://127.0.0.1:4151/pub?topic=controller'
-	headers = {'data': 'hello world 3'}
-	data = '{\"prefix\":\"srm\", \"service\":\"controller\", \"function\":\"add_to_queue\", {\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
-	res = requests.post(string, data=data, headers=headers)
+        msg = '{\"context\":\"clock\",\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
+        command = 'srm&controller&add_to_queue&' + msg
+        res = requests.post(string, data=command)
         # Speak the text from the intent
         sentence = nlu_payload["input"]
 
-    site_id = nlu_payload["siteId"]
-    client.publish("hermes/tts/say", json.dumps({"text": sentence, "siteId": site_id}))
+    # site_id = nlu_payload["siteId"]
+    # client.publish("hermes/tts/say", json.dumps({"text": sentence, "siteId": site_id}))
 
 
 # Create MQTT client and connect to broker
