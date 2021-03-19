@@ -1,0 +1,216 @@
+
+\data\
+ngram 1=33
+ngram 2=74
+ngram 3=96
+
+\1-grams:
+-99	<s>	-0.7892923
+-0.7575698	</s>
+-2.538657	what	-0.2475255
+-2.538657	tell	-0.2475255
+-2.538657	what's	-0.2475255
+-2.061536	time	-0.3328956
+-2.538657	me	-0.2475255
+-1.046177	the	-0.7615503
+-1.861697	is	-0.4511011
+-2.061536	it	-0.5191094
+-2.538657	whats	-0.2475255
+-2.237627	how	-0.2475255
+-2.538657	hot	-0.2475255
+-2.538657	cold	-0.2475255
+-2.538657	temperature	-0.2475255
+-1.465692	garage	-0.7437886
+-2.294897	door	-0.2235668
+-2.595927	open	-0.2235668
+-2.595927	closed	-0.2235668
+-1.058224	turn	-0.687554
+-1.359254	on	-0.5214218
+-1.359254	off	-0.5214218
+-1.535345	living	-0.9415395
+-1.026761	bedroom	-1.414413
+-1.535345	room	-0.9415395
+-0.9094766	light	-0.7537696
+-1.535345	lamp	-0.5539058
+-1.364027	set	-0.8287872
+-1.665057	make	-0.5878218
+-1.665057	to	-0.4644883
+-1.665057	red	-0.8287872
+-1.665057	green	-0.8287872
+-1.665057	blue	-0.8287872
+
+\2-grams:
+-1.843598	<s> what	-0.2475255
+-1.843598	<s> tell	-0.2475255
+-1.843598	<s> what's	-0.2475255
+-1.57613	<s> is	-0.3704291
+-1.843598	<s> whats	-0.2475255
+-1.542568	<s> how	-0.2475255
+-0.3631651	<s> turn	-0.687554
+-0.6689676	<s> set	-0.8287872
+-0.9699976	<s> make	-0.587822
+-0.3571856	what time	-0.2475255
+-0.3604322	tell me	-0.2475255
+-0.313993	what's the	-0.2475255
+-0.3584155	time </s>
+-0.7331892	time is	-0.2475255
+-0.313993	me the	-0.2475255
+-1.261933	the time	-0.4042096
+-1.566958	the temperature	-0.2475255
+-0.7290976	the garage	-0.5573165
+-0.8567225	the living	-0.6875541
+-0.3481376	the bedroom	-1.129794
+-0.5684705	is the	-0.3704291
+-0.3862901	is it	-0.5191095
+-0.1247833	it </s>
+-0.313993	whats the	-0.2475255
+-0.6598359	how hot	-0.2475255
+-0.6598359	how cold	-0.2475255
+-0.3543598	hot is	-0.2475255
+-0.3543598	cold is	-0.2475255
+-0.2730455	temperature </s>
+-0.9123382	garage door	-0.2235668
+-0.1424393	garage light	-0.5539058
+-0.6931468	door open	-0.2235668
+-0.6931468	door closed	-0.2235668
+-0.2951565	open </s>
+-0.2951565	closed </s>
+-0.6632805	turn the	-0.4676291
+-1.135195	turn garage	-0.467629
+-0.6826754	turn on	-0.3894063
+-0.6826754	turn off	-0.3894063
+-1.141413	turn living	-0.4676289
+-1.067889	turn bedroom	-0.467629
+-0.3956674	on </s>
+-0.6950518	on the	-0.2939303
+-1.163989	on garage	-0.2939303
+-1.173769	on living	-0.2939303
+-1.062726	on bedroom	-0.2939303
+-0.3956674	off </s>
+-0.6950518	off the	-0.2939303
+-1.163989	off garage	-0.2939303
+-1.173769	off living	-0.2939303
+-1.062726	off bedroom	-0.2939303
+-0.05113437	living room	-0.9415395
+-0.01491838	bedroom light	-0.6595984
+-0.05113437	room lamp	-0.5539059
+-0.6463731	light </s>
+-0.9780689	light on	-0.6875541
+-0.9780689	light off	-0.6875541
+-0.8285057	light to	-0.4644881
+-0.9990551	light red	-0.6837658
+-0.9990551	light green	-0.6837658
+-0.9990551	light blue	-0.6837658
+-0.3881129	lamp </s>
+-0.7158293	lamp on	-0.4676289
+-0.7158293	lamp off	-0.4676289
+-0.3573633	set the	-0.8287872
+-0.3567607	set bedroom	-0.8287872
+-0.4044361	make the	-0.5878218
+-0.4032672	make bedroom	-0.5878218
+-0.6451934	to red	-0.4644884
+-0.6451934	to green	-0.4644884
+-0.6451934	to blue	-0.4644884
+-0.05670536	red </s>
+-0.05670536	green </s>
+-0.05670536	blue </s>
+
+\3-grams:
+-0.1656276	<s> what time
+-0.1668061	<s> tell me
+-0.1494108	<s> what's the
+-0.1618133	<s> is the
+-0.1494108	<s> whats the
+-0.4672464	<s> how hot
+-0.4672464	<s> how cold
+-0.6139456	<s> turn the
+-1.090108	<s> turn garage
+-0.6174361	<s> turn on
+-0.6174361	<s> turn off
+-1.091252	<s> turn living
+-1.076839	<s> turn bedroom
+-0.308938	<s> set the
+-0.3088579	<s> set bedroom
+-0.3254762	<s> make the
+-0.3252242	<s> make bedroom
+-0.2684224	what time is
+-0.1494108	tell me the
+-0.3321858	what's the time
+-0.1759928	time is it
+-0.3321858	me the time
+-0.1087604	the time </s>
+-0.1330963	the temperature </s>
+-0.6566001	the garage door
+-0.1331669	the garage light
+-0.01001942	the living room
+-0.001089015	the bedroom light
+-0.1848467	is the garage
+-0.03412715	is it </s>
+-0.3470051	whats the temperature
+-0.1645973	how hot is
+-0.1645973	how cold is
+-0.1759928	hot is it
+-0.1759928	cold is it
+-0.4917072	garage door open
+-0.4917072	garage door closed
+-0.3732515	garage light </s>
+-0.6787134	garage light on
+-0.6787134	garage light off
+-0.151655	door open </s>
+-0.151655	door closed </s>
+-0.547692	turn the garage
+-0.5732403	turn the living
+-0.4287505	turn the bedroom
+-0.04347948	turn garage light
+-0.4220969	turn on the
+-0.8974243	turn on garage
+-0.899565	turn on living
+-0.8729451	turn on bedroom
+-0.4220969	turn off the
+-0.8974243	turn off garage
+-0.899565	turn off living
+-0.8729451	turn off bedroom
+-0.01675397	turn living room
+-0.005025336	turn bedroom light
+-0.5871105	on the garage
+-0.6296573	on the living
+-0.4068045	on the bedroom
+-0.066571	on garage light
+-0.02523616	on living room
+-0.007518084	on bedroom light
+-0.5871105	off the garage
+-0.6296573	off the living
+-0.4068045	off the bedroom
+-0.066571	off garage light
+-0.02523616	off living room
+-0.007518084	off bedroom light
+-0.005554326	living room lamp
+-0.7682563	bedroom light </s>
+-1.077956	bedroom light on
+-1.077956	bedroom light off
+-0.6734063	bedroom light to
+-0.8486438	bedroom light red
+-0.8486438	bedroom light green
+-0.8486438	bedroom light blue
+-0.323649	room lamp </s>
+-0.6309564	room lamp on
+-0.6309564	room lamp off
+-0.05688417	light on </s>
+-0.05688417	light off </s>
+-0.5277933	light to red
+-0.5277933	light to green
+-0.5277933	light to blue
+-0.01115266	light red </s>
+-0.01115266	light green </s>
+-0.01115266	light blue </s>
+-0.09892573	lamp on </s>
+-0.09892573	lamp off </s>
+-0.03705591	set the bedroom
+-0.002180653	set bedroom light
+-0.06673721	make the bedroom
+-0.003805075	make bedroom light
+-0.01863703	to red </s>
+-0.01863703	to green </s>
+-0.01863703	to blue </s>
+
+\end\

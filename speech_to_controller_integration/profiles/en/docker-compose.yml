@@ -1,0 +1,74 @@
+services:
+  dialogue:
+    command: --debug --host localhost --port 1883 --site-id default --session-timeout
+      30 --sound wake /usr/lib/rhasspy/etc/wav/beep_hi.wav --sound recorded /usr/lib/rhasspy/etc/wav/beep_lo.wav
+      --sound error /usr/lib/rhasspy/etc/wav/beep_error.wav --volume 1
+    depends_on:
+    - mqtt
+    image: rhasspy/rhasspy-dialogue-hermes
+    tty: true
+  intent_recognition:
+    command: --intent-graph /profiles/en/intent_graph.pickle.gz --debug --host localhost
+      --port 1883 --site-id default --replace-numbers --language en_US --casing lower
+      --converters-dir /profiles/en/converters
+    depends_on:
+    - mqtt
+    image: rhasspy/rhasspy-nlu-hermes
+    tty: true
+    volumes:
+    - /profiles:/profiles
+  microphone:
+    command: --sample-rate 16000 --sample-width 2 --channels 1 --record-command 'arecord
+      -q -r 16000 -f S16_LE -c 1 -t raw -D default:CARD=seeed4micvoicec' --list-command
+      'arecord -L' --test-command 'arecord -q -D {} -r 16000 -f S16_LE -c 1 -t raw'
+      --debug --host localhost --port 1883 --site-id default --udp-audio-host 127.0.0.1
+    depends_on:
+    - mqtt
+    devices:
+    - /dev/snd
+    image: rhasspy/rhasspy-microphone-cli-hermes
+    tty: true
+  speakers:
+    command: --play-command 'aplay -q -t wav -D default:CARD=Device' --list-command
+      'aplay -L' --volume 1 --debug --host localhost --port 1883 --site-id default
+    depends_on:
+    - mqtt
+    devices:
+    - /dev/snd
+    image: rhasspy/rhasspy-speakers-cli-hermes
+    tty: true
+  speech_to_text:
+    command: --acoustic-model /profiles/en/acoustic_model --dictionary /profiles/en/dictionary.txt
+      --language-model /profiles/en/language_model.txt --debug --host localhost --port
+      1883 --site-id default --intent-graph /profiles/en/intent_graph.pickle.gz --base-dictionary
+      /profiles/en/base_dictionary.txt --base-dictionary /profiles/en/custom_words.txt
+      --dictionary-casing lower --g2p-model /profiles/en/g2p.fst --unknown-words /profiles/en/unknown_words.txt
+      --base-language-model-fst /profiles/en/base_language_model.fst --base-language-model-weight
+      0 --mixed-language-model-fst /profiles/en/mixed.fst --voice-skip-seconds 0 --voice-min-seconds
+      1 --voice-max-seconds 20 --voice-speech-seconds 0.3 --voice-silence-seconds
+      0.5 --voice-before-seconds 0.5 --voice-sensitivity 1 --voice-silence-method
+      vad_only
+    depends_on:
+    - mqtt
+    image: rhasspy/rhasspy-asr-pocketsphinx-hermes
+    tty: true
+    volumes:
+    - /profiles:/profiles
+  text_to_speech:
+    command: --tts-command 'espeak --stdout -v {lang}' --voices-command 'espeak --voices
+      | tail -n +2 | awk '"'"'{ print $2,$4 }'"'"'' --language en --volume 1 --debug
+      --host localhost --port 1883 --site-id default
+    depends_on:
+    - mqtt
+    image: rhasspy/rhasspy-tts-cli-hermes
+    tty: true
+  wake:
+    command: --keyword terminator_raspberry-pi.ppn --sensitivity 0.5 --keyword-dir
+      /profiles/en/porcupine --debug --host localhost --port 1883 --site-id default
+    depends_on:
+    - mqtt
+    image: rhasspy/rhasspy-wake-porcupine-hermes
+    tty: true
+    volumes:
+    - /profiles:/profiles
+version: '2'
