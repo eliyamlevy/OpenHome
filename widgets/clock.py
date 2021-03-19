@@ -39,11 +39,8 @@ functions = {"get_time": get_time,
              "get_time_in_loc": get_time_in_loc,
              "get_date": get_date}
 
-def handler(message):
-    print(message.id)
-    print(message.body)
-    
-    msgSplit = str(message.body.decode("utf-8")).split("&")
+def handler(client, userdata, msg):
+    msgSplit = str(msg.payload.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
         args = ()

@@ -12,9 +12,9 @@ def on_disconnect(client, userdata, flags, rc):
     client.reconnect()
 
 def on_message(client, userdata, msg):
-    print(msg.id)
-    print(msg.body)
-    msgSplit = str(msg.body.decode("utf-8")).split("&")
+    print(msg.topic)
+    print(str(msg.payload))
+    msgSplit = str(msg.payload.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
         cmd = json.loads(msgSplit[3])

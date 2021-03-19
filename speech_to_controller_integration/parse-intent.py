@@ -26,16 +26,9 @@ def on_message(client, userdata, msg):
     else:
         # Intent and post to controller topic
         print("Got intent:", nlu_payload["intent"]["intentName"])
-	string = 'http://127.0.0.1:4151/pub?topic=controller'
         msg = '{\"context\":\"clock\",\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
         command = 'srm&controller&add_to_queue&' + msg
-        res = requests.post(string, data=command)
-        # Speak the text from the intent
-        sentence = nlu_payload["input"]
-
-    # site_id = nlu_payload["siteId"]
-    # client.publish("hermes/tts/say", json.dumps({"text": sentence, "siteId": site_id}))
-
+        client.publish("openhome/controller", command)
 
 # Create MQTT client and connect to broker
 client = mqtt.Client()
