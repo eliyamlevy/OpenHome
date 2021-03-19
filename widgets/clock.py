@@ -16,12 +16,12 @@ def respond(args):
     strings = ["resp", "clock", "speak"]
     strings.extend(args)
     resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
+    client.publish("openhome/controller", resp)
 
 def error(message):
     strings = ["resp", "clock", "err", message]
     resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
+    client.publish("openhome/controller", resp)
 
 def get_time():
     curr_time = datetime.now().strftime('%I:%M %p')
@@ -42,7 +42,7 @@ functions = {"get_time": get_time,
 def handler(message):
     print(message.id)
     print(message.body)
-
+    
     msgSplit = str(message.body.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
