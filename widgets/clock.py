@@ -1,19 +1,27 @@
-import nsq
+import paho.mqtt.client as mqtt
 import time
 import requests
 from datetime import datetime
 import time
 
+def on_connect(client, userdata, flags, rc):
+    client.subscribe("openhome/clock")
+    print("Connected and waiting")
+
+def on_disconnect(client, userdata, flags, rc):
+    print("client disconnected")
+    client.reconnect()
+
 def respond(args):
     strings = ["resp", "clock", "speak"]
     strings.extend(args)
     resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
+    client.publish("openhome/controller", resp)
 
 def error(message):
     strings = ["resp", "clock", "err", message]
     resp = '&'.join(strings)
-    requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
+    client.publish("openhome/controller", resp)
 
 def get_time():
     curr_time = datetime.now().strftime('%I:%M %p')
@@ -34,7 +42,7 @@ functions = {"get_time": get_time,
 def handler(message):
     print(message.id)
     print(message.body)
-
+    
     msgSplit = str(message.body.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
@@ -46,8 +54,11 @@ def handler(message):
     return True
 
 if __name__ == '__main__':
-    r = nsq.Reader(message_handler=handler,
-                   lookupd_http_addresses=['http://127.0.0.1:4161'],
-                   topic='clock', channel='clock', lookupd_poll_interval=15)
+    # Create MQTT client and connect to broker
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = handler
 
-    nsq.run()
+    client.connect("localhost", 1883)
+    client.loop_forever()
