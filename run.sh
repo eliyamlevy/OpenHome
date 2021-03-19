@@ -2,12 +2,12 @@
 case $1 in
 	start)
 		echo "Starting controller"
-		python3 controller.py > /tmp/controller.log 2>&1 &
+		python3 controller.py &
 		cd speech_to_controller_integration
 		echo "Starting docker containers"
 		sudo docker-compose up -d
 		echo "Starting intent parser"
-		sudo python3 parse-intent.py > /tmp/parse-intent.log 2>&1 & 
+		sudo python3 parse-intent.py & 
 		cd ..
 		for f in widgets/*.py; do
 			echo "Starting $f"
