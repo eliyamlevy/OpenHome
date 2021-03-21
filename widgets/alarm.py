@@ -106,6 +106,8 @@ def check_time():
 
         curr_timestamp = datetime.datetime.now()
         for row in db_list:
+            if len(row) == 0:
+                continue
             # row[0] is id
             # row[1] is timestamp
             # row[2] is running
@@ -119,7 +121,7 @@ def check_time():
                 
                 strings = ["resp", "alarm", "sound"]
                 resp = '&'.join(strings)
-                requests.post('http://127.0.0.1:4151/pub?topic=controller', data=resp)
+                client.publish("openhome/controller", resp)
             else:
                 continue
 
