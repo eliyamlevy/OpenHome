@@ -48,7 +48,7 @@ functions = {"get_weather": get_weather,
              }
 
 def handler(client, userdata, message):
-    msgSplit = str(message.body.decode("utf-8")).split("&")
+    msgSplit = str(message.payload.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
         args = ()
