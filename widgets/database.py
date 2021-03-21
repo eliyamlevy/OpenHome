@@ -39,7 +39,7 @@ def update(widget, line, id):
 
     idx = -1
     for i, line in enumerate(lines):
-        if line[0] == id:
+        if len(line) > 0 and line[0] == id:
             idx = i
             break
 
@@ -64,7 +64,7 @@ def delete(widget, id):
 
     idx = -1
     for i, line in enumerate(lines):
-        if line[0] == id:
+        if len(line) > 0 and line[0] == id:
             idx = i
             break
 
