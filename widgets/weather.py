@@ -8,7 +8,7 @@ api_key = "e7b72a0959286b07aa36bdf9a17905f1"
 curr_loc = "Los+Angeles"
 
 def on_connect(client, userdata, flags, rc):
-    client.subscribe("openhome/clock")
+    client.subscribe("openhome/weather")
     print("Connected and waiting")
 
 def on_disconnect(client, userdata, flags, rc):
