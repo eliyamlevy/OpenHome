@@ -1,13 +1,20 @@
 from HardwareInterface import HardwareInterface
-import nsq
+import paho.mqtt.client as mqtt
 import requests
 import json
 
-def handler(message):
-    print(message.id)
-    print(message.body)
+def on_connect(client, userdata, flags, rc):
+    client.subscribe("openhome/controller")
+    print("Connected and waiting")
 
-    msgSplit = str(message.body.decode("utf-8")).split("&")
+def on_disconnect(client, userdata, flags, rc):
+    print("client disconnected")
+    client.reconnect()
+
+def on_message(client, userdata, msg):
+    print(msg.topic)
+    print(str(msg.payload))
+    msgSplit = str(msg.payload.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
         cmd = json.loads(msgSplit[3])
@@ -21,14 +28,13 @@ def handler(message):
             else:
                 print("not yet")
         else:
-            url = "http://127.0.0.1:4151/pub?topic=" + cmd["context"]
+            topic = "openhome/" + cmd["context"]
             msg = "cmd&" + cmd["context"] + "&" + cmd["intent"]
             if "slots" in cmd:
                 for arg in cmd["slots"]:
                     msg += "&" + cmd["slots"][arg]
             print(msg)
-            x = requests.post(url, data = msg)
-
+            client.publish(topic, msg)
     elif msgSplit[0] == "resp":     #response from a service
         #check if err
         if msgSplit[2] == "err":
@@ -53,9 +59,12 @@ if __name__ == '__main__':
     #hardware interface instantiation
     hwi = HardwareInterface(smap)
 
-    #Reader instantiation
-    r = nsq.Reader(message_handler=handler,
-    lookupd_http_addresses=['http://127.0.0.1:4161'],
-    topic='controller', channel='controller', lookupd_poll_interval=15)
+    # Create MQTT client and connect to broker
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
 
-    nsq.run()
+    client.connect("localhost", 1883)
+    client.loop_forever()
+

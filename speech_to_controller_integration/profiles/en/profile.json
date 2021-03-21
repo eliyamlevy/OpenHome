@@ -1,0 +1,48 @@
+{
+    "dialogue": {
+        "system": "rhasspy"
+    },
+    "handle": {
+        "system": "hass"
+    },
+    "intent": {
+        "system": "fsticuffs"
+    },
+    "microphone": {
+        "arecord": {
+            "device": "default:CARD=seeed4micvoicec"
+        },
+        "pyaudio": {
+            "device": "1"
+        },
+        "system": "arecord"
+    },
+    "mqtt": {
+        "enabled": "true"
+    },
+    "sounds": {
+        "aplay": {
+            "device": "default:CARD=Device"
+        },
+        "system": "aplay"
+    },
+    "speech_to_text": {
+        "system": "pocketsphinx"
+    },
+    "text_to_speech": {
+        "system": "espeak"
+    },
+    "wake": {
+        "porcupine": {
+            "keyword_path": "terminator_raspberry-pi.ppn"
+        },
+        "raven": {
+            "keywords": {
+                "openhome": {
+                    "enabled": true
+                }
+            }
+        },
+        "system": "porcupine"
+    }
+}

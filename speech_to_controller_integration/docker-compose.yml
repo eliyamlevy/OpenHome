@@ -6,7 +6,7 @@ services:
         network_mode: host
         restart: unless-stopped
         volumes:
-            - '$HOME/.config/rhasspy/profiles:/profiles'
+            - ./profiles:/profiles
         devices:
             - '/dev/snd:/dev/snd'
         image: charliepyle/openhome_rhasspy 

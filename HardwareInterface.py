@@ -1,6 +1,7 @@
-from gtts import gTTS 
 import os
 import time
+import json
+import paho.mqtt.publish as publish
 
 class HardwareInterface:
 
@@ -26,21 +27,7 @@ class HardwareInterface:
     #does text to speak on an inputted text
     def speak(self, text):
         print("Speaker says: " + text)
-        language = 'en'
-
-        # Passing the text and language to the engine, 
-        # here we have marked slow=False. Which tells 
-        # the module that the converted audio should 
-        # have a high speed 
-        myobj = gTTS(text=text, lang=language, slow=False) 
-
-        # Saving the converted audio in a mp3 file named 
-        # welcome 
-        myobj.save("sounds/say.mp3") 
-
-        time.sleep(.5)
-        # Playing the converted file 
-        os.system("mpg321 sounds/say.mp3") 
+        publish.single("hermes/tts/say", json.dumps({"text": text, "siteId": "default"}))
 
     def setVolume(self, volume=None):
         '''
