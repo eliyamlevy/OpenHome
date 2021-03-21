@@ -16,8 +16,9 @@ intents = {
 
 if __name__ == '__main__':
     client = mqtt.Client()
+    client.connect("localhost", 1883)
 
-    msg = '{\"context\":\"alarm\",\"intent\":\"set_alarm\",\"slots\":{\"time\":\"7:05 PM\"}}'
+    msg = '{\"context\":\"alarm\",\"intent\":\"set_alarm\",\"slots\":{\"time\":\"7:22 PM\"}}'
     command = 'srm&controller&add_to_queue&' + msg
     client.publish("openhome/controller", command)
 
