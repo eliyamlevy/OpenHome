@@ -30,7 +30,7 @@ def read(widget):
     return lines
 
 # Update row at index to line
-def update(widget, line, id):
+def update(widget, new_line, id):
     lines = []
     with open('widget_data/' + widget + '.csv') as csvfile:
         reader = csv.reader(csvfile)
@@ -47,7 +47,7 @@ def update(widget, line, id):
         # id not found
         return
 
-    lines[idx] = line
+    lines[idx] = new_line
 
     with open('widget_data/' + widget + '.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
@@ -78,3 +78,23 @@ def delete(widget, id):
         writer = csv.writer(csvfile)
         for line in lines:
             writer.writerow(line)
+
+# For testing
+# import uuid
+# if __name__ == '__main__':
+#     ids = [str(uuid.uuid4()), str(uuid.uuid4()), str(uuid.uuid4())]
+#     write("test", [[str(uuid.uuid4()), -1]])
+#     write("test", [[ids[0], 0]])
+#     append("test", [[ids[1], 1]])
+#     append("test", [[ids[2], 2]])
+#
+#     lines = read("test")
+#     print(lines)
+#
+#     line = lines[0]
+#     line[1] = 3
+#     print(line)
+#     update("test", line, line[0])
+#
+#     lines = read("test")
+#     print(lines)
