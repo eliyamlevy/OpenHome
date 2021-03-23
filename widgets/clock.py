@@ -32,7 +32,7 @@ def get_time_in_loc(location):
     respond(["The time is "+curr_time])
 
 def get_date():
-    curr_date = datetime.now().strftime('%A %m/%d/%Y')
+    curr_date = datetime.now().strftime('%A %B %d %Y')
     respond(["The date is "+curr_date])
 
 functions = {"get_time": get_time,
