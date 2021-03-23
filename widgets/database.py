@@ -2,26 +2,23 @@ import csv
 
 # Overwrite file with lines
 def write(widget, lines):
-    with open('widget_data/' + widget + '.csv', 'w') as csvfile:
+    with open('./widgets/widget_data/' + widget + '.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
         for line in lines:
             writer.writerow(line)
 
 # Append lines to file
 def append(widget, lines):
-    try:
-        with open('widget_data/' + widget + '.csv', 'a') as csvfile:
-            writer = csv.writer(csvfile)
-            for line in lines:
-                writer.writerow(line)
-    except:
-        write(widget, lines)
-
+    with open('./widgets/widget_data/' + widget + '.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile)
+        for line in lines:
+            writer.writerow(line)
+            
 # Read entire file as list of row lists
 def read(widget):
     lines = []
     try:
-        with open('widget_data/' + widget + '.csv') as csvfile:
+        with open('./widgets/widget_data/' + widget + '.csv') as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
                 lines.append(row)
@@ -30,16 +27,16 @@ def read(widget):
     return lines
 
 # Update row at index to line
-def update(widget, new_line, id):
+def update(widget, new_line, uid):
     lines = []
-    with open('widget_data/' + widget + '.csv') as csvfile:
+    with open('./widgets/widget_data/' + widget + '.csv') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             lines.append(row)
 
     idx = -1
     for i, line in enumerate(lines):
-        if len(line) > 0 and line[0] == id:
+        if len(line) > 0 and line[0] == uid:
             idx = i
             break
 
@@ -49,22 +46,22 @@ def update(widget, new_line, id):
 
     lines[idx] = new_line
 
-    with open('widget_data/' + widget + '.csv', 'w') as csvfile:
+    with open('./widgets/widget_data/' + widget + '.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
         for line in lines:
             writer.writerow(line)
 
 # Delete row at index
-def delete(widget, id):
+def delete(widget, uid):
     lines = []
-    with open('widget_data/' + widget + '.csv') as csvfile:
+    with open('./widgets/widget_data/' + widget + '.csv') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             lines.append(row)
 
     idx = -1
     for i, line in enumerate(lines):
-        if len(line) > 0 and line[0] == id:
+        if len(line) > 0 and line[0] == uid:
             idx = i
             break
 
@@ -74,7 +71,7 @@ def delete(widget, id):
 
     del lines[idx]
 
-    with open('widget_data/' + widget + '.csv', 'w') as csvfile:
+    with open('./widgets/widget_data/' + widget + '.csv', 'w') as csvfile:
         writer = csv.writer(csvfile)
         for line in lines:
             writer.writerow(line)
