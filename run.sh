@@ -18,7 +18,7 @@ case $1 in
 	stop)
 		sudo killall python3
 		cd speech_to_controller_integration
-		docker-compose stop
+		sudo docker-compose stop
 		cd ..
 		echo "Done!"
 		;;
