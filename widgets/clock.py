@@ -1,8 +1,6 @@
 import paho.mqtt.client as mqtt
 import time
-import requests
 from datetime import datetime
-import time
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/clock")
