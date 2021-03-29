@@ -1,8 +1,4 @@
 import paho.mqtt.client as mqtt
-import time
-import requests
-from datetime import datetime
-import time
 
 api_key = "e7b72a0959286b07aa36bdf9a17905f1"
 curr_loc = "Los+Angeles"
