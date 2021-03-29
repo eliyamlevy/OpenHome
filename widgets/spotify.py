@@ -11,13 +11,13 @@ def on_disconnect(client, userdata, flags, rc):
     client.reconnect()
 
 def respond(args):
-    strings = ["resp", "clock", "speak"]
+    strings = ["resp", "spotify", "speak"]
     strings.extend(args)
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
 
 def error(message):
-    strings = ["resp", "clock", "err", message]
+    strings = ["resp", "spotify", "err", message]
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
 
