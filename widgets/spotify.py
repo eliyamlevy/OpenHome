@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 import spotipy
-from spotipy.oath2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyOAuth
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/spotify")
@@ -25,7 +25,7 @@ def play(song=None):
     if song == None:
         sp.start_playback(device_id=device_id)
     else:
-        search_result = sp.search(song, device_id=device_id)
+        search_result = sp.search(song, limit=1)
         song_uri = search_result['tracks']['items'][0]['uri']
         sp.start_playback(uris=[song_uri], device_id=device_id)
 
@@ -57,10 +57,10 @@ def handler(client, userdata, msg):
 if __name__ == '__main__':
     # Authorize spotify
     scope = "user-read-playback-state,user-modify-playback-state"
-    sp = spotipy.Spotify(client_id = '58af01245b834e718b9532cbfb0b39f7',
-                         client_secret = '1438a0a493c5423886ad9f867dba3892',
-                         redirect_uri = 'http://localhost',
-                         client_credentials_manager=SpotifyOAuth(scope=scope))
+    sp = spotipy.Spotify(client_credentials_manager=SpotifyOAuth(client_id = '58af01245b834e718b9532cbfb0b39f7',
+                                                                 client_secret = '1438a0a493c5423886ad9f867dba3892',
+                                                                 redirect_uri = 'http://localhost',
+                                                                 scope=scope))
 
     # Get device
     res = sp.devices()
