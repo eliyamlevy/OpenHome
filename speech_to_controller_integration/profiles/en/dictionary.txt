@@ -1,46 +1,41 @@
-spot S P AA T
-blue B L UW
-what W AH T
-what(2) HH W AH T
-is IH Z
-red R EH D
-closed K L OW Z D
-temperature T EH M P R AH CH ER
-temperature(2) T EH M P ER AH CH ER
-lamp L AE M P
-if IH F
+green G R IY N
 off AO F
+bedroom B EH D R UW M
+me M IY
+time T AY M
+what's W AH T S
+what's(2) HH W AH T S
+red R EH D
+happy HH AE P IY
+date D EY T
+is IH Z
+set S EH T
+room R UW M
+door D AO R
+the DH AH
+the(2) DH IY
+turn T ER N
+if IH F
+make M EY K
+on AA N
+on(2) AO N
+eye AY
+closed K L OW Z D
+it IH T
+spot S P AA T
 to T UW
 to(2) T IH
 to(3) T AH
-green G R IY N
-cold K OW L D
-door D AO R
-how HH AW
-bedroom B EH D R UW M
-hot HH AA T
-tell T EH L
-whats W AH T S
-whats(2) HH W AH T S
-turn T ER N
-happy HH AE P IY
-the DH AH
-the(2) DH IY
-open OW P AH N
-living L IH V IH NG
-what's W AH T S
-what's(2) HH W AH T S
-on AA N
-on(2) AO N
-it IH T
-time T AY M
-me M IY
-room R UW M
-eye AY
+lamp L AE M P
 light L AY T
-make M EY K
-play P L EY
+day D EY
 garage G ER AA ZH
+living L IH V IH NG
+play P L EY
+blue B L UW
+what W AH T
+what(2) HH W AH T
+tell T EH L
 hello HH AH L OW
 hello(2) HH EH L OW
-set S EH T
+open OW P AH N
