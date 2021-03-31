@@ -45,5 +45,3 @@ class switch:
             xy = [0.3, 0.65]
         
         self.b.set_light(3, 'xy', xy)
-
-

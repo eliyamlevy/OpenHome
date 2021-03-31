@@ -1,12 +1,12 @@
 import paho.mqtt.client as mqtt
 import time
-from ... import switch
+from switch import switch
 
 s = switch()
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/hue")
-    print("Connected and waiting")
+    print("Connected and waiting (hue)")
 
 def on_disconnect(client, userdata, flags, rc):
     print("client disconnected")
@@ -25,19 +25,19 @@ def error(message):
 
 def on():
     s.on()
-    respond(["Hue turned on"])
+    respond(["Lights turned on"])
 
 def off():
     s.off()
-    respond(["Hue turned off"])
+    respond(["Lights turned off"])
 
 def brighten():
     s.brighten()
-    respond(["Hue brightened"])
+    respond(["Lights brightened"])
 
 def dim():
     s.dim()
-    respond(["Hue dimmed"])
+    respond(["Lights dimmed"])
 
 def set_color(color):
     colors = ['white', 'red', 'blue', 'green']
@@ -55,6 +55,7 @@ functions = {
 def handler(client, userdata, msg):
     msgSplit = str(msg.payload.decode("utf-8")).split("&")
     print(msgSplit)
+    print("--- getting to hue widget ---")
     if msgSplit[0] == "cmd":        #incoming command from controller
         args = ()
         for arg in msgSplit[3:]:
