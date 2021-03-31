@@ -1,41 +1,90 @@
-green G R IY N
-off AO F
-bedroom B EH D R UW M
-me M IY
-time T AY M
-what's W AH T S
-what's(2) HH W AH T S
-red R EH D
-happy HH AE P IY
-date D EY T
-is IH Z
-set S EH T
-room R UW M
-door D AO R
-the DH AH
-the(2) DH IY
-turn T ER N
-if IH F
-make M EY K
-on AA N
-on(2) AO N
 eye AY
-closed K L OW Z D
-it IH T
+fourteen F AO R T IY N
+twenty T W EH N T IY
+twenty(2) T W EH N IY
+time T AY M
+get G EH T
+get(2) G IH T
+hello HH AH L OW
+hello(2) HH EH L OW
+song S AO NG
+light L AY T
+tell T EH L
+stop S T AA P
+turn T ER N
+blue B L UW
+play P L EY
+williams W IH L Y AH M Z
+set S EH T
+four F AO R
+pause P AO Z
+over OW V ER
+five F AY V
+weather W EH DH ER
 spot S P AA T
+eleven IH L EH V AH N
+eleven(2) IY L EH V AH N
+it IH T
+ten T EH N
+seven S EH V AH N
+twelve T W EH L V
+me M IY
+three TH R IY
+fifty F IH F T IY
+firework F AY R W ER K
+adele AH D EH L
+alarm AH L AA R M
+skip S K IH P
+restart R IY S T AA R T
 to T UW
 to(2) T IH
 to(3) T AH
-lamp L AE M P
-light L AY T
+green G R IY N
+date D EY T
+sixteen S IH K S T IY N
+nineteen N AY N T IY N
+what's W AH T S
+what's(2) HH W AH T S
+snooze S N UW Z
+happy HH AE P IY
+for F AO R
+for(2) F ER
+for(3) F R ER
+the DH AH
+the(2) DH IY
+cancel K AE N S AH L
+forty F AO R T IY
+fifteen F IH F T IY N
+six S IH K S
+o OW
+am AE M
+am(2) EY EH M
+thirty TH ER D IY
+thirty(2) TH ER T IY
+off AO F
+dim D IH M
+one W AH N
+one(2) HH W AH N
+pm P IY EH M
+start S T AA R T
 day D EY
-garage G ER AA ZH
-living L IH V IH NG
-play P L EY
-blue B L UW
+is IH Z
+perry P EH R IY
+if IH F
+rewind R IY W AY N D
+make M EY K
+lights L AY T S
+eight EY T
+katy K EY T IY
 what W AH T
 what(2) HH W AH T
-tell T EH L
-hello HH AH L OW
-hello(2) HH EH L OW
-open OW P AH N
+on AA N
+on(2) AO N
+seventeen S EH V AH N T IY N
+nine N AY N
+two T UW
+thirteen TH ER T IY N
+red R EH D
+brighten B R AY T AH N
+eighteen EY T IY N
+pharrell F AE R AH L

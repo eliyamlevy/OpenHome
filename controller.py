@@ -2,7 +2,7 @@ from HardwareInterface import HardwareInterface
 import paho.mqtt.client as mqtt
 import requests
 import json
-import widgets.widget_mapping
+from widgets.widget_mapping import *
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/controller")

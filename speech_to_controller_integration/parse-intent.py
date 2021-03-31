@@ -31,7 +31,12 @@ def on_message(client, userdata, msg):
     else:
         # Intent and post to controller topic
         print("Got intent:", nlu_payload["intent"]["intentName"])
-        msg = '{\"slots\":\%s\,\"intent\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"])
+        
+        if len(slots) == 0:
+            msg = '{\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
+        else:
+            msg = '{\"slots\":%s,\"intent\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"])
+    
         command = 'srm&controller&add_to_queue&' + msg
         client.publish("openhome/controller", command)
         print(msg)

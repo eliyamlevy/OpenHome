@@ -1,4 +1,4 @@
-function_to_widget = {'incr_volume': 'util',
+widget_from_intent = {'incr_volume': 'util',
                       'decr_volume': 'util',
 
                       'get_time': 'clock',
@@ -18,9 +18,9 @@ function_to_widget = {'incr_volume': 'util',
                       'skip': 'spotify',
                       'rewind': 'spotify',
 
-                      'change_light_state': 'hue',
-                      'change_brightness': 'hue',
+                      'on': 'hue',
+                      'off': 'hue',
                       'dim': 'hue',
                       'brighten': 'hue',
-                      'change_color': 'hue',
+                      'set_color': 'hue',
                       }
