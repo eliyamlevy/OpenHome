@@ -20,15 +20,26 @@ def on_disconnect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     """Called each time a message is received on a subscribed topic."""
     nlu_payload = json.loads(msg.payload)
+#    print(nlu_payload)
+    slots = {}
+    if 'slots' in nlu_payload.keys():
+        for slot in nlu_payload['slots']:
+            slots[slot['entity']] = slot['rawValue']
     if msg.topic == "hermes/nlu/intentNotRecognized":
         sentence = "Unrecognized command!"
         print("Recognition failure")
     else:
         # Intent and post to controller topic
         print("Got intent:", nlu_payload["intent"]["intentName"])
-        msg = '{\"context\":\"clock\",\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
+        
+        if len(slots) == 0:
+            msg = '{\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
+        else:
+            msg = '{\"slots\":%s,\"intent\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"])
+    
         command = 'srm&controller&add_to_queue&' + msg
         client.publish("openhome/controller", command)
+        print(msg)
 
 # Create MQTT client and connect to broker
 client = mqtt.Client()

@@ -33,7 +33,7 @@
         "system": "espeak"
     },
     "wake": {
-        "porcupine": {
+	"porcupine": {
             "keyword_path": "terminator_raspberry-pi.ppn"
         },
         "raven": {
