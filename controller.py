@@ -2,6 +2,7 @@ from HardwareInterface import HardwareInterface
 import paho.mqtt.client as mqtt
 import requests
 import json
+from widgets.widget_mapping import *
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/controller")
@@ -18,7 +19,8 @@ def on_message(client, userdata, msg):
     print(msgSplit)
     if msgSplit[0] == "srm":        #incoming command from srm
         cmd = json.loads(msgSplit[3])
-        if cmd["context"] == "util":
+        context = widget_from_intent[cmd["intent"]]
+        if context == "util":
             print("util")
             print(cmd)
             if cmd["intent"] == "incr_volume":
@@ -28,8 +30,8 @@ def on_message(client, userdata, msg):
             else:
                 print("not yet")
         else:
-            topic = "openhome/" + cmd["context"]
-            msg = "cmd&" + cmd["context"] + "&" + cmd["intent"]
+            topic = "openhome/" + context
+            msg = "cmd&" + context + "&" + cmd["intent"]
             if "slots" in cmd:
                 for arg in cmd["slots"]:
                     msg += "&" + cmd["slots"][arg]
