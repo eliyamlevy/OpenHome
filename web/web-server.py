@@ -39,7 +39,7 @@ def index():
 def index():
     cmd = request.forms.get('terminalInput')
     print(cmd)
-    #publish.single("openhome/controller", cmd)
+    publish.single("openhome/controller", cmd)
     return '''  <!doctype html>
 
                 <html lang="en">
@@ -106,7 +106,6 @@ def say_form():
 def say():
     say = request.forms.get('say')
     publish.single("hermes/tts/say", json.dumps({"text": say, "siteId": "default"}))
-
     return '''  <!doctype html>
 
                 <html lang="en">
