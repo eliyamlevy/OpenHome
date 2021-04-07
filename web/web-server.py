@@ -198,7 +198,7 @@ def weather_success():
                                 <h4>Weather App Setup</h4>
                                 <p>Your Location has been saved, Thank You!</p>
                             <div class="links">
-                                <a href="/">Return Home</a>
+                                <a href="/config">Back</a>
                             </div>
                         </div>
                     </body>
@@ -227,7 +227,7 @@ def hue_success():
                                 <h4>Hue App Setup</h4>
                                 <p>Your Hue Bridge has been connected, Thank You!</p>
                             <div class="links">
-                                <a href="/">Return Home</a>
+                                <a href="/config">Back</a>
                             </div>
                         </div>
                     </body>
