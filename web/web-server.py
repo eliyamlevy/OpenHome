@@ -139,4 +139,4 @@ def login_submit():
                 </html> '''
 
 if __name__ == '__main__':
-    run(host='0.0.0.0', port=8080)
+    run(host='0.0.0.0', port=7070)
