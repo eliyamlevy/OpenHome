@@ -3,7 +3,7 @@ import paho.mqtt.publish as publish
 import json
 
 #Test page
-@get('') # or @route('/login')
+@get('/') # or @route('/login')
 def login_form():
     return '''  <!doctype html>
 
@@ -44,11 +44,11 @@ def login_form():
 @post('/say') # or @route('/login', method='POST')
 def login_submit():
     say = request.forms.get('say')
-    publish.single("hermes/tts/say", json.dumps({"text": text, "siteId": "default"}))
+    publish.single("hermes/tts/say", json.dumps({"text": say, "siteId": "default"}))
     return '''<form method="POST" action="/say">
                 <input name="say"     type="text" />
                 <input type="submit" />
               </form>'''
 
 if __name__ == '__main__':
-    run(host='localhost', port=8080)
+    run(host='0.0.0.0', port=8080)
