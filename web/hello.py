@@ -28,6 +28,9 @@ def login_form():
                                     <input id="publish" type="submit" value="publish">
                                 </form>'
                             </div>
+                            <div class="links">
+                                <a href="/say">Say terminal</a>
+                            </div>
                         </div>
                     </body>
                 </html> '''
@@ -60,6 +63,9 @@ def login_form():
                                     <input id="publish" type="submit" value="publish">
                                 </form>'
                             </div>
+                            <div class="links">
+                                <a href="/say">Say terminal</a>
+                            </div>
                         </div>
                     </body>
                 </html> '''
@@ -89,6 +95,9 @@ def login_form():
                                     <input name="say" type="text" /> <br>
                                     <input type="submit" />
                                 </form>'
+                            </div>
+                            <div class="links">
+                                <a href="/">Home</a>
                             </div>
                         </div>
                     </body>
@@ -121,6 +130,9 @@ def login_submit():
                                     <input name="say" type="text" /> <br>
                                     <input type="submit" />
                                 </form>'
+                            </div>
+                            <div class="links">
+                                <a href="/">Home</a>
                             </div>
                         </div>
                     </body>
