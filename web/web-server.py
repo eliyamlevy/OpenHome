@@ -26,7 +26,7 @@ def login_form():
                                 <form method="POST" action="/">
                                     <input id="terminalInput" type="text" name="terminalInput" placeholder="Input commands here ..."/> <br>
                                     <input id="publish" type="submit" value="publish">
-                                </form>'
+                                </form>
                             </div>
                             <div class="links">
                                 <a href="/say">Say terminal</a>
@@ -61,7 +61,7 @@ def login_form():
                                 <form method="POST" action="/">
                                     <input id="terminalInput" type="text" name="terminalInput" placeholder="Input commands here ..."/> <br>
                                     <input id="publish" type="submit" value="publish">
-                                </form>'
+                                </form>
                             </div>
                             <div class="links">
                                 <a href="/say">Say terminal</a>
@@ -94,7 +94,7 @@ def login_form():
                                 <form method="POST" action="/say">
                                     <input name="say" type="text" /> <br>
                                     <input type="submit" />
-                                </form>'
+                                </form>
                             </div>
                             <div class="links">
                                 <a href="/">Home</a>
@@ -129,7 +129,7 @@ def login_submit():
                                 <form method="POST" action="/say">
                                     <input name="say" type="text" /> <br>
                                     <input type="submit" />
-                                </form>'
+                                </form>
                             </div>
                             <div class="links">
                                 <a href="/">Home</a>
