@@ -1,8 +1,9 @@
 import paho.mqtt.client as mqtt
 import requests
+import json
 
 api_key = "e7b72a0959286b07aa36bdf9a17905f1"
-curr_loc = "Los+Angeles"
+curr_loc = None
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/weather")
@@ -24,6 +25,10 @@ def error(message):
     client.publish("openhome/controller", resp)
 
 def get_weather(args):
+    if curr_loc == None:
+        error("Error. No default location set.")
+        return
+
     url = "http://api.openweathermap.org/data/2.5/weather?q="+curr_loc+"&APPID="+api_key
     weather = requests.get(url).json()
     
@@ -41,8 +46,26 @@ def get_weather_in_loc(args):
     response_string = "The weather in "+location.replace('+', ' ')+" is "+str(temp)+" degrees"
     respond([response_string])
 
+def set_location(args):
+    if len(args) == 0:
+        city = None
+    else:
+        city = args[0]
+
+    if city is not None:
+        write_data = {"city": str(city)}
+        with open('./widgets/configs/weather.json', 'w') as weather_config:
+            json.dump(write_data, weather_config)
+        curr_loc = city
+    else:
+        with open('./widgets/configs/weather.json') as weather_config:
+            read_data = json.load(weather_config)
+            if 'city' in read_data and read_data['city'] is not None:
+                curr_loc = read_data['city']
+
 functions = {"get_weather": get_weather,
              "get_weather_in_loc": get_weather_in_loc,
+             "set_location": set_location,
              }
 
 def handler(client, userdata, message):
@@ -62,6 +85,7 @@ if __name__ == '__main__':
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_message = handler
+    set_location(())
 
     client.connect("localhost", 1883)
     client.loop_forever()
