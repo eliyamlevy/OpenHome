@@ -23,4 +23,7 @@ widget_from_intent = {'incr_volume': 'util',
                       'dim': 'hue',
                       'brighten': 'hue',
                       'set_color': 'hue',
+                      
+                      'set_timer': 'timer',
+                      'cancel_timer': 'timer',
                       }
