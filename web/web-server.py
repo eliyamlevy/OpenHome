@@ -105,7 +105,8 @@ def say_form():
 @post('/say')
 def say():
     say = request.forms.get('say')
-    publish.single("hermes/tts/say", json.dumps({"text": say, "siteId": "default"}))
+    cmd = "resp&webserver&speak&" + say
+    publish.single("openhome/controller", cmd)
     return '''  <!doctype html>
 
                 <html lang="en">
@@ -163,7 +164,7 @@ def config():
                                 <h4>Hue Bridge Setup</h4>
                                 <p>Please input the ip address of your Hue bridge and press the center button on the bridge before pressing submit</p>
                                 <form method="POST" action="/config/hue/success">
-                                    <input name="IP Address" type="text" placeholder="Location"/> <br>
+                                    <input name="ip_address" type="text" placeholder="Location"/> <br>
                                     <input type="submit" />
                                 </form>
                             </div>
@@ -177,6 +178,9 @@ def config():
 #Weather config success
 @post('/config/weather/success')
 def weather_success():
+    location = request.forms.get('location')
+    cmd = "resp&webserver&config&weather&" + location
+    publish.single("openhome/controller", cmd)
     return '''  <!doctype html>
 
                 <html lang="en">
@@ -206,6 +210,9 @@ def weather_success():
 #Hue config success
 @post('/config/hue/success')
 def hue_success():
+    ip = request.forms.get('ip_address')
+    cmd = "resp&webserver&config&light&" + ip
+    publish.single("openhome/controller", cmd)
     return '''  <!doctype html>
 
                 <html lang="en">
