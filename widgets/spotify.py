@@ -21,7 +21,12 @@ def error(message):
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
 
-def play(song=None):
+def play(args):
+    if len(args) == 0:
+        song = None
+    else:
+        song = args[0]
+    
     if song == None:
         sp.start_playback(device_id=device_id)
     else:
@@ -29,13 +34,13 @@ def play(song=None):
         song_uri = search_result['tracks']['items'][0]['uri']
         sp.start_playback(uris=[song_uri], device_id=device_id)
 
-def pause():
+def pause(args):
     sp.pause_playback(device_id=device_id)
 
-def skip():
+def skip(args):
     sp.next_track(device_id=device_id)
 
-def rewind():
+def rewind(args):
     sp.seek_track(0, device_id=device_id)
 
 functions = {"play": play,
@@ -50,7 +55,7 @@ def handler(client, userdata, msg):
         args = ()
         for arg in msgSplit[3:]:
             args += (arg,)
-        functions[msgSplit[2]](*args)
+        functions[msgSplit[2]](args)
 
     return True
 

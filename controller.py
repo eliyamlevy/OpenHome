@@ -41,6 +41,7 @@ def on_message(client, userdata, msg):
         #check if err
         if msgSplit[2] == "err":
             print("Error in " + msgSplit[1])
+            hwi.speak(msgSplit[3])
 
         elif msgSplit[2] == "speak":
             hwi.speak(str(msgSplit[3]))

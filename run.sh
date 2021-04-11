@@ -33,6 +33,10 @@ case $1 in
 		sudo pip3 install requests	
 		echo "Installing MQTT"
 		sudo pip3 install paho-mqtt
+		echo "Installing phue"
+		sudo pip3 install phue
+		echo "Installing word2number"
+		sudo pip3 install word2number
 		echo "done"
 		;;
 	*)
