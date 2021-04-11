@@ -25,6 +25,7 @@ def error(message):
     client.publish("openhome/controller", resp)
 
 def get_weather(args):
+    global curr_loc 
     if curr_loc == None:
         error("Error. No default location set.")
         return
@@ -47,6 +48,7 @@ def get_weather_in_loc(args):
     respond([response_string])
 
 def set_location(args):
+    global curr_loc 
     if len(args) == 0:
         city = None
     else:
@@ -58,11 +60,14 @@ def set_location(args):
             json.dump(write_data, weather_config)
         curr_loc = city
     else:
-        with open('./widgets/configs/weather.json') as weather_config:
-            read_data = json.load(weather_config)
-            if 'city' in read_data and read_data['city'] is not None:
-                curr_loc = read_data['city']
-
+        try:
+            with open('./widgets/configs/weather.json') as weather_config:
+                read_data = json.load(weather_config)
+                if 'city' in read_data and read_data['city'] is not None:
+                    curr_loc = read_data['city']
+        except:
+            pass
+        
 functions = {"get_weather": get_weather,
              "get_weather_in_loc": get_weather_in_loc,
              "set_location": set_location,

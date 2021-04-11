@@ -20,8 +20,10 @@ if __name__ == '__main__':
 
     #msg = '{\"context\":\"alarm\",\"intent\":\"set_alarm\",\"slots\":{\"time\":\"1:50 PM\"}}'
     #msg = '{\"context\":\"alarm\",\"intent\":\"cancel_alarm\",\"slots\":{\"time\":\"1:50 PM\"}}'
-    msg = '{\"context\":\"alarm\",\"intent\":\"stop_alarm\"}'
-    command = 'srm&controller&add_to_queue&' + msg
-    client.publish("openhome/controller", command)
+    #msg = '{\"context\":\"alarm\",\"intent\":\"stop_alarm\"}'
+    msg = 'London'
+    #command = 'srm&controller&add_to_queue&' + msg
+    command = 'cmd&weather&set_location&' + msg
+    client.publish("openhome/weather", command)
 
 
