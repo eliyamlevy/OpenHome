@@ -4,6 +4,7 @@ import database
 import threading
 import uuid
 import time
+from word2number import w2n
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/alarm")
@@ -25,9 +26,20 @@ def error(message):
     client.publish("openhome/controller", resp)
 
 def get_datetime_from_time(time):
-    parsed_datetime = datetime.datetime.strptime(time, '%I:%M %p')
+    
+    hour = w2n.word_to_num(time[0])
+    if time[1] == "am" or time[1] == "pm":
+        minute = 0
+        ampm = time[1]
+    else:
+        minute = w2n.word_to_num(time[1])
+        ampm = time[2]
+        
+    if ampm == "pm":
+        hour += 12
+        
     curr_datetime = datetime.datetime.now()
-    parsed_datetime = parsed_datetime.replace(year=curr_datetime.year, month=curr_datetime.month, day=curr_datetime.day)
+    parsed_datetime = datetime.datetime(year=curr_datetime.year, month=curr_datetime.month, day=curr_datetime.day, minute=minute, hour=hour)
     
     if parsed_datetime < curr_datetime:
         tomorrow_datetime = curr_datetime + datetime.timedelta(days=1)
@@ -35,13 +47,15 @@ def get_datetime_from_time(time):
                                                   day=tomorrow_datetime.day) 
     return parsed_datetime
     
-def set_alarm(time):
-    parsed_datetime = get_datetime_from_time(time)
+def set_alarm(args):
+    parsed_datetime = get_datetime_from_time(args)
+    
+    print(parsed_datetime)
     id = str(uuid.uuid4())
     unix_alarm = parsed_datetime.timestamp()
     database.append("alarm", [[id, str(unix_alarm), 0, 0]])
 
-def stop_alarm():
+def stop_alarm(args):
     db_list = database.read("alarm")
 
     alarm = []
@@ -49,7 +63,7 @@ def stop_alarm():
         if row[2] == '1':
             database.delete("alarm", row[0])
 
-def snooze_alarm():
+def snooze_alarm(args):
     db_list = database.read("alarm")
 
     for row in db_list:
@@ -58,11 +72,11 @@ def snooze_alarm():
             row[3] = str(int(row[3])+1)   # snooze
             database.update("alarm", row, row[0])
 
-def cancel_alarm(time):
+def cancel_alarm(args):
     db_list = database.read("alarm")
-    print("cancelling alarm at", time)
+    print("cancelling alarm at", args)
     uid = ''
-    parsed_datetime = get_datetime_from_time(time)
+    parsed_datetime = get_datetime_from_time(args)
     
     for row in db_list:
         if row[1] == str(parsed_datetime.timestamp()) or row[1] == str((parsed_datetime - datetime.timedelta(days=1)).timestamp()):
@@ -120,7 +134,7 @@ def handler(client, userdata, message):
         args = ()
         for arg in msgSplit[3:]:
             args += (arg,)
-        functions[msgSplit[2]](*args)
+        functions[msgSplit[2]](args)
 
     return True
 

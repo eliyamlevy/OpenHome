@@ -23,7 +23,7 @@ def error(message):
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
 
-def get_weather():
+def get_weather(args):
     url = "http://api.openweathermap.org/data/2.5/weather?q="+curr_loc+"&APPID="+api_key
     weather = requests.get(url).json()
     
@@ -32,7 +32,8 @@ def get_weather():
     response_string = "The weather in "+curr_loc.replace('+', ' ')+" is "+str(temp)+" degrees"
     respond([response_string])
 
-def get_weather_in_loc(location="London"):
+def get_weather_in_loc(args):
+    location = args[0]
     url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID="+api_key
     weather = requests.get(url).json()
     
@@ -51,7 +52,7 @@ def handler(client, userdata, message):
         args = ()
         for arg in msgSplit[3:]:
             args += (arg,)
-        functions[msgSplit[2]](*args)
+        functions[msgSplit[2]](args)
 
     return True
 

@@ -24,35 +24,36 @@ def error(message):
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
 
-def on():
+def on(args):
     if s is None:
         error("Error: no connected lights or bridge found")
         return
     s.on()
     respond(["Lights turned on"])
 
-def off():
+def off(args):
     if s is None:
         error("Error: no connected lights or bridge found")
         return
     s.off()
     respond(["Lights turned off"])
 
-def brighten():
+def brighten(args):
     if s is None:
         error("Error: no connected lights or bridge found")
         return
     s.brighten()
     respond(["Lights brightened"])
 
-def dim():
+def dim(args):
     if s is None:
         error("Error: no connected lights or bridge found")
         return
     s.dim()
     respond(["Lights dimmed"])
 
-def set_color(color):
+def set_color(args):
+    color = args[0]
     if s is None:
         error("Error: no connected lights or bridge found")
         return
@@ -60,13 +61,18 @@ def set_color(color):
     s.set_color(colors.index(color))
     respond(["Lights set to " + color])
 
-def bridge_connect(ip_address):
+def bridge_connect(args):
     global s
+    if len(args) == 0:
+        ip_address = None
+    else:
+        ip_address = args[0]
+        
     if ip_address is not None:
         write_data = {"ip_address" : str(ip_address)}
         s = switch(ip_address)
     else:
-        with open('widgets/configs/hue.json') as hue_config:
+        with open('./widgets/configs/hue.json') as hue_config:
             read_data = json.load(hue_config)
             if 'ip_address' in read_data and read_data['ip_address'] is not None:
                 ip_address = read_data['ip_address']
@@ -92,7 +98,7 @@ def handler(client, userdata, msg):
         args = ()
         for arg in msgSplit[3:]:
             args += (arg,)
-        functions[msgSplit[2]](*args)
+        functions[msgSplit[2]](args)
 
     return True
 
@@ -102,7 +108,7 @@ if __name__ == '__main__':
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_message = handler
-    bridge_connect(None) # will only connect if ip_address exists in configs, otherwise wait for ip_address
+    bridge_connect(()) # will only connect if ip_address exists in configs, otherwise wait for ip_address
 
     client.connect("localhost", 1883)
     client.loop_forever()
