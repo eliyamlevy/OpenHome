@@ -41,12 +41,22 @@ def on_message(client, userdata, msg):
         #check if err
         if msgSplit[2] == "err":
             print("Error in " + msgSplit[1])
+            hwi.speak(msgSplit[3])
 
         elif msgSplit[2] == "speak":
             hwi.speak(str(msgSplit[3]))
             
         elif msgSplit[2] == "sound":
             hwi.playSound(1)
+
+        elif msgSplit[1] == "webserver":
+            topic = "openhome/" + msgSplit[3]
+            if msgSplit[3] == "weather":
+                msg = "cmd&" + "weather" + "&" + "set_location" + "&" + msgSplit[4]
+                client.publish(topic, msg)
+            elif msgSplit[3] == "light":
+                msg = "cmd&" + "light" + "&" + "bridge_connect" + "&" + msgSplit[4]
+                client.publish(topic, msg)
 
     elif msgSplit[0] == "util":     #something to do with configs or hw settings
         pass           

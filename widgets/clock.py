@@ -21,15 +21,16 @@ def error(message):
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
 
-def get_time():
+def get_time(args):
     curr_time = datetime.now().strftime('%I:%M %p')
     respond(["The time is "+curr_time])
 
-def get_time_in_loc(location):
+def get_time_in_loc(args):
+    location = args[0]
     curr_time = datetime.now().strftime('%I:%M %p')
     respond(["The time is "+curr_time])
 
-def get_date():
+def get_date(args):
     curr_date = datetime.now().strftime('%A %B %d %Y')
     respond(["The date is "+curr_date])
 
@@ -44,7 +45,7 @@ def handler(client, userdata, msg):
         args = ()
         for arg in msgSplit[3:]:
             args += (arg,)
-        functions[msgSplit[2]](*args)
+        functions[msgSplit[2]](args)
 
     return True
 
