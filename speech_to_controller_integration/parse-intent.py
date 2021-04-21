@@ -20,7 +20,7 @@ def on_disconnect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     """Called each time a message is received on a subscribed topic."""
     nlu_payload = json.loads(msg.payload)
-#    print(nlu_payload)
+    print(nlu_payload)
     slots = {}
     if 'slots' in nlu_payload.keys():
         for slot in nlu_payload['slots']:
@@ -33,9 +33,9 @@ def on_message(client, userdata, msg):
         print("Got intent:", nlu_payload["intent"]["intentName"])
         
         if len(slots) == 0:
-            msg = '{\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
+            msg = '{\"intent\":\"%s\", \"raw\":\"%s\"}' % (nlu_payload["intent"]["intentName"], nlu_payload["input"])
         else:
-            msg = '{\"slots\":%s,\"intent\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"])
+            msg = '{\"slots\":%s,\"intent\":\"%s\", \"raw\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"], nlu_payload["input"])
     
         command = 'srm&controller&add_to_queue&' + msg
         client.publish("openhome/controller", command)
