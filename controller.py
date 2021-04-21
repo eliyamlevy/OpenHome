@@ -48,15 +48,22 @@ def on_message(client, userdata, msg):
             
         elif msgSplit[2] == "sound":
             hwi.playSound(1)
-
-        elif msgSplit[1] == "webserver":
-            topic = "openhome/" + msgSplit[3]
-            if msgSplit[3] == "weather":
-                msg = "cmd&" + "weather" + "&" + "set_location" + "&" + msgSplit[4]
-                client.publish(topic, msg)
-            elif msgSplit[3] == "light":
-                msg = "cmd&" + "light" + "&" + "bridge_connect" + "&" + msgSplit[4]
-                client.publish(topic, msg)
+        elif msgSplit[2] == "config":
+            if msgSplit[1] == "webserver":
+                topic = "openhome/" + msgSplit[3]
+                if msgSplit[3] == "weather":
+                    msg = "cmd&" + "weather" + "&" + "set_location" + "&" + msgSplit[4]
+                    client.publish(topic, msg)
+                elif msgSplit[3] == "light":
+                    msg = "cmd&" + "light" + "&" + "bridge_connect" + "&" + msgSplit[4]
+                    client.publish(topic, msg)
+                elif msgSplit[3] == "spotify":
+                    msg = "cmd&" + "spotify" + "&" + "on_auth" + "&" + msgSplit[4]
+                    client.publish(topic, msg)
+            elif msgSplit[1] == "spotify":
+                topic = "openhome/" + msgSplit[3]
+                if msgSplit[3] == "webserver":
+                    msg = "cmd&" + "webserver" + "&" + "spotify_url" + "&" + msgSplit[4]
 
     elif msgSplit[0] == "util":     #something to do with configs or hw settings
         pass           

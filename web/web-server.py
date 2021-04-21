@@ -2,6 +2,24 @@ from bottle import run, get, post, request
 import paho.mqtt.publish as publish
 import json
 
+auth_url = "config/spotify/error"
+
+def on_connect(client, userdata, flags, rc):
+    client.subscribe("openhome/clock")
+    print("Connected and waiting")
+    run(host='0.0.0.0', port=7070)
+
+def on_disconnect(client, userdata, flags, rc):
+    print("client disconnected")
+    client.reconnect()
+
+def handler(client, userdata, msg):
+    msgSplit = str(msg.payload.decode("utf-8")).split("&")
+    print(msgSplit)
+    if msgSplit[0] == "cmd":        #incoming command from controller
+        if msgSplit[2] == "spotify_url":
+            auth_url = msgSplit[3]
+
 #Splash page
 @get('/')
 def index():
@@ -243,6 +261,8 @@ def config():
                                     <input name="ip_address" type="text" placeholder="Location"/> <br>
                                     <input type="submit" />
                                 </form>
+                                <br>
+                                <h4><a href="{auth_url}">Spotify Sign in</a></h4>
                             </div>
                             <div class="links">
                                 <a href="/" style="font-family: Helvetica;color: white">Return Home</a>
@@ -356,5 +376,102 @@ def hue_success():
                     </center>
                 </html> '''
 
+#Hue config success
+@get('/config/spotify/success')
+def hue_success():
+    #need to add code which sends token back to spotify widget
+    return '''<!DOCTYPE html>
+                <html lang="en">
+                    <center>
+                    <head>
+                        <style>
+                            img {
+                              border-radius: 50%;
+                            }
+                        </style>
+                        <meta charset="utf-8">
+                        <title>OpenHome</title>
+                        <meta name="description" content="The web interface for your OpenHome!">
+                        <meta name="author" content="OpenHome">
+                    </head>
+
+                    <body style="background-color:rgb(84,134,191);">
+                        <script src="index.js"></script>
+                        <div class="body">
+                            <div class="header">
+                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                            </div>
+                            <div class="forms">
+                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: white">Your Spotify account is set up.</p>
+                            <div class="links">
+                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                            </div>
+                        </div>
+                    </body>
+                    <br></br>
+                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: white">
+                        About OpenHome
+                    </h3>
+                    <p style="font-family: Helvetica;color: white">
+                        Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
+                        It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
+                    </p>
+                    </center>
+                </html> '''
+
+#Hue config success
+@get('/config/spotify/error')
+def hue_success():
+    return '''<!DOCTYPE html>
+                <html lang="en">
+                    <center>
+                    <head>
+                        <style>
+                            img {
+                              border-radius: 50%;
+                            }
+                        </style>
+                        <meta charset="utf-8">
+                        <title>OpenHome</title>
+                        <meta name="description" content="The web interface for your OpenHome!">
+                        <meta name="author" content="OpenHome">
+                    </head>
+
+                    <body style="background-color:rgb(84,134,191);">
+                        <script src="index.js"></script>
+                        <div class="body">
+                            <div class="header">
+                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                            </div>
+                            <div class="forms">
+                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: white">Your Spotify account could not be set up.</p>
+                            <div class="links">
+                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                            </div>
+                        </div>
+                    </body>
+                    <br></br>
+                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: white">
+                        About OpenHome
+                    </h3>
+                    <p style="font-family: Helvetica;color: white">
+                        Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
+                        It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
+                    </p>
+                    </center>
+                </html> '''
+    
+
 if __name__ == '__main__':
-    run(host='0.0.0.0', port=7070)
+        # Create MQTT client and connect to broker
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = handler
+
+    client.connect("localhost", 1883)
+    client.loop_forever()
