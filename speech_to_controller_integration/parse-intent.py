@@ -1,5 +1,6 @@
 import json
 import requests
+import re
 
 # pip install paho-mqtt
 import paho.mqtt.client as mqtt
@@ -22,21 +23,34 @@ def on_message(client, userdata, msg):
     nlu_payload = json.loads(msg.payload)
     print(nlu_payload)
     slots = {}
-    if 'slots' in nlu_payload.keys():
-        for slot in nlu_payload['slots']:
-            slots[slot['entity']] = slot['rawValue']
+
     if msg.topic == "hermes/nlu/intentNotRecognized":
-        sentence = "Unrecognized command!"
-        print("Recognition failure")
+        print("Unrecognized: ", str(nlu_payload['input']))
+        template = re.compile("(?i)Play (.*?) on spot if eye")
+        try:
+            result = template.search(str(nlu_payload['input']))
+            song_name = result.group(1)
+            slots['song'] = song_name
+            msg = '{\"slots\":%s,\"intent\":\"%s\"}' % (json.dumps(slots), 'play')
+            command = 'srm&controller&add_to_queue&' + msg
+            client.publish("openhome/controller", command)
+            print(msg)
+            print('Successfully parsed using regex')
+        except:
+            print('Cannot parse using regex')
     else:
+        if 'slots' in nlu_payload.keys():
+            for slot in nlu_payload['slots']:
+                slots[slot['entity']] = slot['rawValue']
+
         # Intent and post to controller topic
         print("Got intent:", nlu_payload["intent"]["intentName"])
-        
+
         if len(slots) == 0:
-            msg = '{\"intent\":\"%s\", \"raw\":\"%s\"}' % (nlu_payload["intent"]["intentName"], nlu_payload["input"])
+            msg = '{\"intent\":\"%s\"}' % (nlu_payload["intent"]["intentName"])
         else:
-            msg = '{\"slots\":%s,\"intent\":\"%s\", \"raw\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"], nlu_payload["input"])
-    
+            msg = '{\"slots\":%s,\"intent\":\"%s\"}' % (json.dumps(slots), nlu_payload["intent"]["intentName"])
+
         command = 'srm&controller&add_to_queue&' + msg
         client.publish("openhome/controller", command)
         print(msg)
