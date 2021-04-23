@@ -60,22 +60,30 @@ def handler(client, userdata, msg):
     return True
 
 if __name__ == '__main__':
-    # Authorize spotify
-    scope = "user-read-playback-state,user-modify-playback-state"
-    sp = spotipy.Spotify(client_credentials_manager=SpotifyOAuth(client_id = '58af01245b834e718b9532cbfb0b39f7',
-                                                                 client_secret = '1438a0a493c5423886ad9f867dba3892',
-                                                                 redirect_uri = 'http://localhost',
-                                                                 scope=scope))
-
-    # Get device
-    res = sp.devices()
-    device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
-
+    
     # Create MQTT client and connect to broker
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.on_message = handler
-
     client.connect("localhost", 1883)
+
+    # Authorize spotify
+    scope = "user-read-playback-state,user-modify-playback-state"
+    auth_manager = SpotifyOAuth(client_id = '58af01245b834e718b9532cbfb0b39f7',
+                                client_secret = '1438a0a493c5423886ad9f867dba3892',
+                                redirect_uri = 'http://localhost:7070/config/spotify/success',
+                                scope=scope)
+    
+    auth_url = auth_manager.get_authorize_url()
+
+    strings = ["resp", "spotify", "config", "webserver", auth_url]
+    resp = '&'.join(strings)
+    client.publish("openhome/controller", resp)
+    
+    #sp = spotipy.Spotify(auth_manager=auth_manager)
+    # Get device
+    #res = sp.devices()
+    #device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
+
     client.loop_forever()
