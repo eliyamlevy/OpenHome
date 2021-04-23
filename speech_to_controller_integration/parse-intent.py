@@ -26,18 +26,6 @@ def on_message(client, userdata, msg):
 
     if msg.topic == "hermes/nlu/intentNotRecognized":
         print("Unrecognized: ", str(nlu_payload['input']))
-        template = re.compile("(?i)Play (.*?) on spot if eye")
-        try:
-            result = template.search(str(nlu_payload['input']))
-            song_name = result.group(1)
-            slots['song'] = song_name
-            msg = '{\"slots\":%s,\"intent\":\"%s\"}' % (json.dumps(slots), 'play')
-            command = 'srm&controller&add_to_queue&' + msg
-            client.publish("openhome/controller", command)
-            print(msg)
-            print('Successfully parsed using regex')
-        except:
-            print('Cannot parse using regex')
     else:
         if 'slots' in nlu_payload.keys():
             for slot in nlu_payload['slots']:
