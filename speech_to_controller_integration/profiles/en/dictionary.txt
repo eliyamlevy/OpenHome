@@ -1,98 +1,124 @@
-firework F AY R W ER K
-a AH
-a(2) EY
-five F AY V
-it IH T
-pause P AO Z
-three TH R IY
-if IH F
-tell T EH L
-dim D IH M
-happy HH AE P IY
-perry P EH R IY
-light L AY T
-play P L EY
-red R EH D
-song S AO NG
+set S EH T
 get G EH T
 get(2) G IH T
-restart R IY S T AA R T
-fifty F IH F T IY
-green G R IY N
-start S T AA R T
-spot S P AA T
-eye AY
-ten T EH N
-alarm AH L AA R M
-nineteen N AY N T IY N
-off AO F
-seven S EH V AH N
-over OW V ER
-two T UW
-sixteen S IH K S T IY N
-me M IY
-four F AO R
-time T AY M
-cancel K AE N S AH L
+happy HH AE P IY
 forty F AO R T IY
-pm P IY EH M
-nine N AY N
-turn T ER N
-weather W EH DH ER
-snooze S N UW Z
-stop S T AA P
-six S IH K S
-seventeen S EH V AH N T IY N
-thirty TH ER D IY
-thirty(2) TH ER T IY
-hello HH AH L OW
-hello(2) HH EH L OW
-is IH Z
+over OW V ER
+change CH EY N JH
 eight EY T
-adele AH D EH L
-fourteen F AO R T IY N
-make M EY K
-o OW
-to T UW
-to(2) T IH
-to(3) T AH
-seconds S EH K AH N D Z
-seconds(2) S EH K AH N Z
-fifteen F IH F T IY N
+red R EH D
 timer T AY M ER
-the DH AH
-the(2) DH IY
+a AH
+a(2) EY
+give G IH V
+restart R IY S T AA R T
+how HH AW
+fourteen F AO R T IY N
+two T UW
 eleven IH L EH V AH N
 eleven(2) IY L EH V AH N
+stop S T AA P
+pause P AO Z
+angeles AE N JH AH L IH S
+skip S K IH P
+green G R IY N
+williams W IH L Y AH M Z
 on AA N
 on(2) AO N
-minutes M IH N AH T S
-thirteen TH ER T IY N
-blue B L UW
-one W AH N
-one(2) HH W AH N
-day D EY
-skip S K IH P
-katy K EY T IY
-twenty T W EH N T IY
-twenty(2) T W EH N IY
-twelve T W EH L V
-brighten B R AY T AH N
+six S IH K S
+hours AW ER Z
+hours(2) AW R Z
+lights L AY T S
+in IH N
+stars S T AA R Z
+eighteen EY T IY N
+seventeen S EH V AH N T IY N
+new N UW
+new(2) N Y UW
 for F AO R
 for(2) F ER
 for(3) F R ER
-what's W AH T S
-what's(2) HH W AH T S
-what W AH T
-what(2) HH W AH T
-lights L AY T S
-williams W IH L Y AH M Z
+sixteen S IH K S T IY N
+seattle S IY AE T AH L
+is IH Z
+all AO L
 am AE M
 am(2) EY EH M
+york Y AO R K
+seven S EH V AH N
+timers T AY M ER Z
+an AE N
+an(2) AH N
+spot S P AA T
+one W AH N
+one(2) HH W AH N
+now N AW
 rewind R IY W AY N D
-eighteen EY T IY N
+firework F AY R W ER K
+rewrite R IY R AY T
+pm P IY EH M
+seconds S EH K AH N D Z
+seconds(2) S EH K AH N Z
 date D EY T
-set S EH T
-hours AW ER Z
-hours(2) AW R Z
+start S T AA R T
+light L AY T
+play P L EY
+cancel K AE N S AH L
+nineteen N AY N T IY N
+what's W AH T S
+what's(2) HH W AH T S
+five F AY V
+adele AH D EH L
+brighten B R AY T AH N
+it IH T
+four F AO R
+fireflies F AY ER F L AY Z
+three TH R IY
+fifty F IH F T IY
+song S AO NG
+the DH AH
+the(2) DH IY
+thirty TH ER D IY
+thirty(2) TH ER T IY
+turn T ER N
+katy K EY T IY
+blue B L UW
+weather W EH DH ER
+o OW
+what W AH T
+what(2) HH W AH T
+hello HH AH L OW
+hello(2) HH EH L OW
+fifteen F IH F T IY N
+eye AY
+tell T EH L
+today T AH D EY
+today(2) T UW D EY
+circles S ER K AH L Z
+alarm AH L AA R M
+twelve T W EH L V
+make M EY K
+minutes M IH N AH T S
+twenty T W EH N T IY
+twenty(2) T W EH N IY
+off AO F
+if IH F
+nine N AY N
+perry P EH R IY
+snooze S N UW Z
+to T UW
+to(2) T IH
+to(3) T AH
+miami M AY AE M IY
+please P L IY Z
+time T AY M
+ten T EH N
+thirteen TH ER T IY N
+london L AH N D AH N
+day D EY
+at AE T
+dim D IH M
+me M IY
+los L OW S
+los(2) L AO S
 pharrell F AE R AH L

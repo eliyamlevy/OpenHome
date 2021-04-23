@@ -99,7 +99,7 @@ def cancel_alarm(args):
             break
 
     if uid == '':
-        error('I\'m sorry, there is no alarm set for ' + args)
+        error('I\'m sorry, there is no alarm set for ' + " ".join(args))
         return
 
     database.delete("alarm", uid)
