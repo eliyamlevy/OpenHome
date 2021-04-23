@@ -1,3 +1,4 @@
+import paho.mqtt.client as mqtt
 from bottle import run, get, post, request
 import paho.mqtt.publish as publish
 import json
@@ -5,7 +6,7 @@ import json
 auth_url = "config/spotify/error"
 
 def on_connect(client, userdata, flags, rc):
-    client.subscribe("openhome/clock")
+    client.subscribe("openhome/webserver")
     print("Connected and waiting")
     run(host='0.0.0.0', port=7070)
 
@@ -18,7 +19,7 @@ def handler(client, userdata, msg):
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
         if msgSplit[2] == "spotify_url":
-            auth_url = msgSplit[3]
+            auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
 
 #Splash page
 @get('/')

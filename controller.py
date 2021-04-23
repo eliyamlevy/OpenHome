@@ -63,7 +63,9 @@ def on_message(client, userdata, msg):
             elif msgSplit[1] == "spotify":
                 topic = "openhome/" + msgSplit[3]
                 if msgSplit[3] == "webserver":
-                    msg = "cmd&" + "webserver" + "&" + "spotify_url" + "&" + msgSplit[4]
+                    msg = "cmd&" + "webserver" + "&" + "spotify_url" + "&" + msgSplit[4]+ "&" + msgSplit[5]+ "&" + msgSplit[6]+ "&" + msgSplit[7]
+                    print(msg, topic)
+                    client.publish(topic, msg)
 
     elif msgSplit[0] == "util":     #something to do with configs or hw settings
         pass           
