@@ -27,13 +27,17 @@
         "system": "aplay"
     },
     "speech_to_text": {
+        "pocketsphinx": {
+            "mix_weight": ".01",
+            "open_transcription": true
+        },
         "system": "pocketsphinx"
     },
     "text_to_speech": {
         "system": "espeak"
     },
     "wake": {
-	"porcupine": {
+        "porcupine": {
             "keyword_path": "terminator_raspberry-pi.ppn"
         },
         "raven": {

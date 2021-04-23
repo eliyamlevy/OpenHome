@@ -26,7 +26,7 @@ def on_message(client, userdata, msg):
 
     if msg.topic == "hermes/nlu/intentNotRecognized":
         print("Unrecognized: ", str(nlu_payload['input']))
-        template = re.compile("(?i)Play (.*?) on spot if eye")
+        template = re.compile("(?i)Play (.*)")
         try:
             result = template.search(str(nlu_payload['input']))
             song_name = result.group(1)
