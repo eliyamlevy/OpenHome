@@ -45,13 +45,18 @@ def time_trigger(seconds):
 
 def set_timer(args):
     global t
+    global stop_thread
+
     time_val = w2n.word_to_num(args[0])
     if args[1] == "minutes":
         time_val *= 60
     elif args[1] == "hours":
         time_val *= 3600
 
-    cancel_timer(args)
+    if t is not None:
+        stop_thread = True
+        t.join()
+        stop_thread = False
     t = threading.Thread(target=time_trigger, args=(time_val,))
     t.start()
 
@@ -59,7 +64,9 @@ def cancel_timer(args):
     global stop_thread
     global t
 
-    if t is not None:
+    if t is None:
+        error('I\'m sorry, there are no timers to cancel')
+    else:
         stop_thread = True
         t.join()
         stop_thread = False
@@ -68,6 +75,7 @@ functions = {
     'set_timer': set_timer,
     'cancel_timer': cancel_timer,
     }
+
 def handler(client, userdata, msg):
     msgSplit = str(msg.payload.decode("utf-8")).split("&")
     print(msgSplit)

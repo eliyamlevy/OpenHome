@@ -26,7 +26,6 @@ def error(message):
     client.publish("openhome/controller", resp)
 
 def get_datetime_from_time(time):
-    
     hour = w2n.word_to_num(time[0])
     if time[1] == "am" or time[1] == "pm":
         minute = 0
@@ -49,41 +48,58 @@ def get_datetime_from_time(time):
     
 def set_alarm(args):
     parsed_datetime = get_datetime_from_time(args)
-    
     print(parsed_datetime)
+    db_list = database.read("alarm")
+
+    for row in db_list:
+        if row[1] == str(parsed_datetime.timestamp()):
+            error('There is already an alarm set for that time')
+            return
+
     id = str(uuid.uuid4())
     unix_alarm = parsed_datetime.timestamp()
     database.append("alarm", [[id, str(unix_alarm), 0, 0]])
 
 def stop_alarm(args):
     db_list = database.read("alarm")
+    found = False
 
     alarm = []
     for row in db_list:
         if row[2] == '1':
             database.delete("alarm", row[0])
+            found = True
+
+    if not found:
+        error('I\'m sorry, there are no alarms to stop')
 
 def snooze_alarm(args):
     db_list = database.read("alarm")
+    found = False
 
     for row in db_list:
         if row[2] == '1':
             row[2] = '0'    # stop running
             row[3] = str(int(row[3])+1)   # snooze
             database.update("alarm", row, row[0])
+            found = True
+
+    if not found:
+        error('I\'m sorry, there are no alarms to snooze')
 
 def cancel_alarm(args):
     db_list = database.read("alarm")
     print("cancelling alarm at", args)
     uid = ''
     parsed_datetime = get_datetime_from_time(args)
-    
+
     for row in db_list:
         if row[1] == str(parsed_datetime.timestamp()) or row[1] == str((parsed_datetime - datetime.timedelta(days=1)).timestamp()):
             uid = row[0]
             break
 
     if uid == '':
+        error('I\'m sorry, there is no alarm set for ' + " ".join(args))
         return
 
     database.delete("alarm", uid)
