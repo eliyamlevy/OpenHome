@@ -2,20 +2,32 @@
 
 from phue import Bridge
 import time as t
+import sys
+
+sys.tracebacklimit = 0
 
 class switch:
 
     def __init__(self, ip_address):
-        self.b = Bridge(ip_address)
-        self.b.connect()
-        api = self.b.get_api()
-        self.lights = list() # contains ids of all the lights associated with the bridge
-        if api is not None:
-            for light in api['lights']:
-                self.lights.append(int(light[0]))
-                print(self.lights)
-        self.set_color()
-        self.off()
+
+        self.valid = True
+
+        try:
+            self.b = Bridge(ip_address)
+            self.b.connect()
+            api = self.b.get_api()
+        except:
+            self.valid = False
+            print("Unable to connect to bridge with provided ip address:", ip_address)
+        
+        if self.valid:
+            self.lights = list() # contains ids of all the lights associated with the bridge
+            if api is not None:
+                for light in api['lights']:
+                    self.lights.append(int(light[0]))
+                    print(self.lights)
+            self.set_color()
+            self.off()
 
     def on(self):
         for light in self.lights:

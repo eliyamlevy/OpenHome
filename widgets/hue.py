@@ -70,7 +70,12 @@ def bridge_connect(args):
         
     if ip_address is not None:
         write_data = {"ip_address" : str(ip_address)}
+        with open('./widgets/configs/hue.json', 'w') as hue_config:
+            json.dump(write_data, hue_config)
         s = switch(ip_address)
+        if not s.valid:
+            s = None
+            error("Error: Bridge connection is invalid. Resetting switch to None.")
     else:
         with open('./widgets/configs/hue.json') as hue_config:
             read_data = json.load(hue_config)
@@ -78,6 +83,9 @@ def bridge_connect(args):
                 ip_address = read_data['ip_address']
                 # write_data = {"ip_address" : str(ip_address)}
                 s = switch(ip_address)
+                if not s.valid:
+                    s = None
+                    error("Error: Bridge connection is invalid. Resetting switch to None.")
                 # print("switch instantiated:", s)
                 # print("ip_address found in configs:", ip_address)
 
