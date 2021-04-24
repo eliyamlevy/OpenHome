@@ -11,6 +11,7 @@ class switch:
     def __init__(self, ip_address):
 
         self.valid = True
+        api = None
 
         try:
             self.b = Bridge(ip_address)
