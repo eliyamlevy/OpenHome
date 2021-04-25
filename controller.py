@@ -54,8 +54,9 @@ def on_message(client, userdata, msg):
                 if msgSplit[3] == "weather":
                     msg = "cmd&" + "weather" + "&" + "set_location" + "&" + msgSplit[4]
                     client.publish(topic, msg)
-                elif msgSplit[3] == "light":
-                    msg = "cmd&" + "light" + "&" + "bridge_connect" + "&" + msgSplit[4]
+                elif msgSplit[3] == "hue":
+                    msg = "cmd&" + "hue" + "&" + "bridge_connect" + "&" + msgSplit[4]
+                    print(msg)
                     client.publish(topic, msg)
                 elif msgSplit[3] == "spotify":
                     msg = "cmd&" + "spotify" + "&" + "on_auth" + "&" + msgSplit[4]

@@ -334,7 +334,7 @@ def weather_success():
 @post('/config/hue/success')
 def hue_success():
     ip = request.forms.get('ip_address')
-    cmd = "resp&webserver&config&light&" + ip
+    cmd = "resp&webserver&config&hue&" + ip
     publish.single("openhome/controller", cmd)
     return '''<!DOCTYPE html>
                 <html lang="en">
