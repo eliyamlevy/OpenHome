@@ -8,6 +8,11 @@ auth_url = "config/spotify/error"
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/webserver")
     print("Connected and waiting")
+    # with open('./widgets/configs/hue.json') as web_config:
+    #     read_data = json.load(web_config)
+    #     if 'auth_url' in read_data and read_data['auth_url'] is not None:
+    #         auth_url = read_data['auth_url']
+    #         run(host='0.0.0.0', port=7070)
 
 def on_disconnect(client, userdata, flags, rc):
     print("client disconnected")
@@ -20,6 +25,9 @@ def handler(client, userdata, msg):
         if msgSplit[2] == "spotify_url":
             print("recieved spotify authg url, starting bottle server")
             auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
+            # write_data = {"auth_url" : auth_url}
+            # with open('./web/configs/web-server.json', 'w') as web_config:
+            #     json.dump(write_data, web_config)
     run(host='0.0.0.0', port=7070)
 
 #Splash page
@@ -264,10 +272,9 @@ def config():
                                     <input type="submit" />
                                 </form>
                                 <br>
-                                <form method="POST" action="/spotify/redirect">
+                                <form method="POST" action="/config/spotify/redirect">
                                     <input type="submit" value="Spotify Sign In"/>
                                 </form>
-                                <h4><a href="/spotify/redirect">Spotify Sign in</a></h4>
                             </div>
                             <div class="links">
                                 <a href="/" style="font-family: Helvetica;color: white">Return Home</a>
@@ -382,9 +389,49 @@ def hue_success():
                 </html> '''
 
 
-@post('/spotify/redirect')
+@post('/config/spotify/redirect')
 def spotify_redirect():
     redirect(auth_url)
+    return '''<!DOCTYPE html>
+                <html lang="en">
+                    <center>
+                    <head>
+                        <style>
+                            img {
+                              border-radius: 50%;
+                            }
+                        </style>
+                        <meta charset="utf-8">
+                        <title>OpenHome</title>
+                        <meta name="description" content="The web interface for your OpenHome!">
+                        <meta name="author" content="OpenHome">
+                    </head>
+
+                    <body style="background-color:rgb(84,134,191);">
+                        <script src="index.js"></script>
+                        <div class="body">
+                            <div class="header">
+                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                            </div>
+                            <div class="forms">
+                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: white">Your Spotify account is set up.</p>
+                            <div class="links">
+                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                            </div>
+                        </div>
+                    </body>
+                    <br></br>
+                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: white">
+                        About OpenHome
+                    </h3>
+                    <p style="font-family: Helvetica;color: white">
+                        Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
+                        It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
+                    </p>
+                    </center>
+                </html> '''
 
 #Hue config success
 @get('/config/spotify/success')
