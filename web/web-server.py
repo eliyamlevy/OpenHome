@@ -264,6 +264,9 @@ def config():
                                     <input type="submit" />
                                 </form>
                                 <br>
+                                <form method="POST" action="/spotify/redirect">
+                                    <input type="submit" value="Spotify Sign In"/>
+                                </form>
                                 <h4><a href="/spotify/redirect">Spotify Sign in</a></h4>
                             </div>
                             <div class="links">
@@ -379,7 +382,7 @@ def hue_success():
                 </html> '''
 
 
-@get('/spotify/redirect')
+@post('/spotify/redirect')
 def spotify_redirect():
     redirect(auth_url)
 
