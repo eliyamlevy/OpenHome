@@ -25,6 +25,7 @@ def handler(client, userdata, msg):
         if msgSplit[2] == "spotify_url":
             print("recieved spotify authg url, starting bottle server")
             auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
+            print(auth_url)
             # write_data = {"auth_url" : auth_url}
             # with open('./web/configs/web-server.json', 'w') as web_config:
             #     json.dump(write_data, web_config)
@@ -391,7 +392,8 @@ def hue_success():
 
 @post('/config/spotify/redirect')
 def spotify_redirect():
-    redirect(auth_url)
+    #redirect(auth_url)
+    print(auth_url)
     return '''<!DOCTYPE html>
                 <html lang="en">
                     <center>
