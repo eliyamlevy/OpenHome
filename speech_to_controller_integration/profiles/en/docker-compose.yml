@@ -63,9 +63,8 @@ services:
     image: rhasspy/rhasspy-tts-cli-hermes
     tty: true
   wake:
-    command: --keyword hey_open_home_linux_2021-04-19-utc_v1_9_0.ppn --sensitivity
-      0.5 --keyword-dir /profiles/en/porcupine --debug --host localhost --port 1883
-      --site-id default
+    command: --keyword computer_raspberry-pi.ppn --sensitivity 0.5 --keyword-dir /profiles/en/porcupine
+      --debug --host localhost --port 1883 --site-id default
     depends_on:
     - mqtt
     image: rhasspy/rhasspy-wake-porcupine-hermes
