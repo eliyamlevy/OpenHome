@@ -19,6 +19,7 @@ def on_disconnect(client, userdata, flags, rc):
     client.reconnect()
 
 def handler(client, userdata, msg):
+    global auth_url
     msgSplit = str(msg.payload.decode("utf-8")).split("&")
     print(msgSplit)
     if msgSplit[0] == "cmd":        #incoming command from controller
@@ -392,7 +393,8 @@ def hue_success():
 
 @post('/config/spotify/redirect')
 def spotify_redirect():
-    #redirect(auth_url)
+    global auth_url
+    redirect(auth_url)
     print(auth_url)
     return '''<!DOCTYPE html>
                 <html lang="en">
