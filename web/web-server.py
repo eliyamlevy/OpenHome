@@ -230,7 +230,7 @@ def say():
 #Config Page
 @get('/config')
 def config():
-    return '''<!DOCTYPE html>
+    webpage = ('''<!DOCTYPE html>
                 <html lang="en">
                     <center>
                     <head>
@@ -264,7 +264,7 @@ def config():
                                     <input type="submit" />
                                 </form>
                                 <br>
-                                <h4><a href="{auth_url}">Spotify Sign in</a></h4>
+                                <h4><a href="%s">Spotify Sign in</a></h4>
                             </div>
                             <div class="links">
                                 <a href="/" style="font-family: Helvetica;color: white">Return Home</a>
@@ -281,7 +281,9 @@ def config():
                         It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
                     </p>
                     </center>
-                </html> '''
+                </html> ''' % (auth_url))
+    print(webpage)
+    return webpage
 
 #Weather config success
 @post('/config/weather/success')
