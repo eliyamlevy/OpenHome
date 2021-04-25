@@ -24,7 +24,10 @@ def handler(client, userdata, msg):
     if msgSplit[0] == "cmd":        #incoming command from controller
         if msgSplit[2] == "spotify_url":
             print("recieved spotify authg url, starting bottle server")
-            auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
+            # auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
+
+            redirect_uri = "redirect_uri=192.168.80.30:7070/config/spotify/success"
+            auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+redirect_uri+"&"+msgSplit[6]
             print(auth_url)
             # write_data = {"auth_url" : auth_url}
             # with open('./web/configs/web-server.json', 'w') as web_config:
