@@ -27,7 +27,7 @@ def handler(client, userdata, msg):
             print("recieved spotify authg url, starting bottle server")
             # auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
 
-            redirect_uri = "redirect_uri=192.168.80.30:7070/config/spotify/success"
+            redirect_uri = "redirect_uri=http://192.168.80.30:7070/config/spotify/success"
             auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+redirect_uri+"&"+msgSplit[6]
             print(auth_url)
             # write_data = {"auth_url" : auth_url}
@@ -444,6 +444,9 @@ def spotify_redirect():
 @get('/config/spotify/success')
 def hue_success():
     #need to add code which sends token back to spotify widget
+    code = request.query['code']
+    cmd = "resp&webserver&config&spotify&" + code
+    publish.single("openhome/controller", cmd)
     return '''<!DOCTYPE html>
                 <html lang="en">
                     <center>
