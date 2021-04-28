@@ -4,6 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 
 auth_manager = None
+sp = None
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/spotify")
@@ -48,8 +49,13 @@ def rewind(args):
 
 def on_auth(args):
     global auth_manager
+    global sp
     auth_manager.get_access_token(args[0])
-    
+    sp = spotipy.Spotify(auth_manager=auth_manager)
+    # Get device
+    res = sp.devices()
+    device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
+
 
 functions = {"play": play,
              "pause": pause,
@@ -81,7 +87,7 @@ if __name__ == '__main__':
     scope = "user-read-playback-state,user-modify-playback-state"
     auth_manager = SpotifyOAuth(client_id = '58af01245b834e718b9532cbfb0b39f7',
                                 client_secret = '1438a0a493c5423886ad9f867dba3892',
-                                redirect_uri = 'http://localhost:7070/config/spotify/success',
+                                redirect_uri = 'http://192.168.80.30:7070/config/spotify/success',
                                 scope=scope)
     
     auth_url = auth_manager.get_authorize_url()
@@ -90,13 +96,13 @@ if __name__ == '__main__':
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
     
-    while '.cache' not in os.listdir():
-        continue
+   # while '.cache' not in os.listdir():
+   #     continue
 
-    print("Spotify Authorized")
-    sp = spotipy.Spotify(auth_manager=auth_manager)
-    # Get device
-    res = sp.devices()
-    device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
+   # print("Spotify Authorized")
+   # sp = spotipy.Spotify(auth_manager=auth_manager)
+   # # Get device
+   # res = sp.devices()
+   # device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
 
     client.loop_forever()
