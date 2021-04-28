@@ -1,6 +1,39 @@
-from bottle import run, get, post, request
+import paho.mqtt.client as mqtt
+from bottle import run, get, post, request, redirect 
 import paho.mqtt.publish as publish
 import json
+
+auth_url = "config/spotify/error"
+
+def on_connect(client, userdata, flags, rc):
+    client.subscribe("openhome/webserver")
+    print("Connected and waiting")
+    # with open('./widgets/configs/hue.json') as web_config:
+    #     read_data = json.load(web_config)
+    #     if 'auth_url' in read_data and read_data['auth_url'] is not None:
+    #         auth_url = read_data['auth_url']
+    #         run(host='0.0.0.0', port=7070)
+
+def on_disconnect(client, userdata, flags, rc):
+    print("client disconnected")
+    client.reconnect()
+
+def handler(client, userdata, msg):
+    global auth_url
+    msgSplit = str(msg.payload.decode("utf-8")).split("&")
+    print(msgSplit)
+    if msgSplit[0] == "cmd":        #incoming command from controller
+        if msgSplit[2] == "spotify_url":
+            print("recieved spotify authg url, starting bottle server")
+            # auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+msgSplit[5]+"&"+msgSplit[6]
+
+            redirect_uri = "redirect_uri=http://192.168.80.30:7070/config/spotify/success"
+            auth_url = msgSplit[3]+"&"+msgSplit[4]+"&"+redirect_uri+"&"+msgSplit[6]
+            print(auth_url)
+            # write_data = {"auth_url" : auth_url}
+            # with open('./web/configs/web-server.json', 'w') as web_config:
+            #     json.dump(write_data, web_config)
+    run(host='0.0.0.0', port=7070)
 
 #Splash page
 @get('/')
@@ -296,6 +329,9 @@ def config():
                                     <br>
                                     <input id="submit" type="submit" class="btn btn-primary btn-lg"/>
                                 </form>
+                                <form method="POST" action="/config/spotify/redirect">
+                                    <input type="submit" value="Spotify Sign In"/>
+                                </form>
                             </div>
                             <div class="links">
                                 <br><br>
@@ -424,6 +460,160 @@ def hue_success():
                     </center>
                 </html> '''
 
+#spotify redirect
+@post('/config/spotify/redirect')
+def spotify_redirect():
+    global auth_url
+    redirect(auth_url)
+    print(auth_url)
+    return '''<!DOCTYPE html>
+                <html lang="en">
+                    <center>
+                    <head>
+                        <style>
+                            img {
+                              border-radius: 50%;
+                            }
+                        </style>
+                        <meta charset="utf-8">
+                        <title>OpenHome</title>
+                        <meta name="description" content="The web interface for your OpenHome!">
+                        <meta name="author" content="OpenHome">
+                    </head>
+                    <body style="background-color:rgb(84,134,191);">
+                        <script src="index.js"></script>
+                        <div class="body">
+                            <div class="header">
+                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                            </div>
+                            <div class="forms">
+                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: white">Your Spotify account is set up.</p>
+                            <div class="links">
+                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                            </div>
+                        </div>
+                    </body>
+                    <br></br>
+                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: white">
+                        About OpenHome
+                    </h3>
+                    <p style="font-family: Helvetica;color: white">
+                        Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
+                        It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
+                    </p>
+                    </center>
+                </html> '''
+
+#Spotify config success
+@get('/config/spotify/success')
+def hue_success():
+    #need to add code which sends token back to spotify widget
+    code = request.query['code']
+    cmd = "resp&webserver&config&spotify&" + code
+    publish.single("openhome/controller", cmd)
+    return '''<!DOCTYPE html>
+                <html lang="en">
+                    <center>
+                    <head>
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                        <style>
+                            img {
+                              border-radius: 50%;
+                            }
+                        </style>
+                        <meta charset="utf-8">
+                        <title>OpenHome</title>
+                        <meta name="description" content="The web interface for your OpenHome!">
+                        <meta name="author" content="OpenHome">
+                    </head>
+                    <body style="background-color:rgb(84,134,191);">
+                        <script src="index.js"></script>
+                        <div class="body">
+                            <div class="header">
+                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                            </div>
+                            <div class="forms">
+                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: white">Your Spotify account is set up.</p>
+                            <div class="links">
+                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                            </div>
+                        </div>
+                    </body>
+                    <br></br>
+                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: white">
+                        About OpenHome
+                    </h3>
+                    <p style="font-family: Helvetica;color: white">
+                        Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
+                        It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
+                    </p>
+                    </center>
+                </html> '''
+
+#Spotify config error
+@get('/config/spotify/error')
+def spotify_error():
+    return '''<!DOCTYPE html>
+                <html lang="en">
+                    <center>
+                    <head>
+                        <style>
+                            img {
+                              border-radius: 50%;
+                            h2 {
+                              font-size: xx-large;
+                            }
+                        </style>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                        <title>OpenHome</title>
+                        <meta name="description" content="The web interface for your OpenHome!">
+                        <meta name="author" content="OpenHome">
+                    </head>
+                    <body style="background-color:rgb(84,134,191);">
+                    <body style="background-color: white);">
+                        <script src="index.js"></script>
+                        <div class="body">
+                            <div class="header">
+                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                                <br>
+                                <h2 style="font-family: Helvetica;color: black; font-weight: bold; font-size: 1000">
+                                    OpenHome Setup Page
+                                </h2>
+                            </div>
+                            <div class="forms">
+                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: white">Your Spotify account could not be set up.</p>
+                                <h4 style="font-family: Helvetica;color: black">Hue App Setup</h4>
+                                <p style="font-family: Helvetica;color: black">Your Hue Bridge has been connected. Thank You!</p>
+                            <div class="links">
+                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                                <a href="/config" style="font-family: Helvetica;color: navy">Back</a>
+                            </div>
+                        </div>
+                    </body>
+                    <br></br>
+                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
+                    <img src="https://media4.giphy.com/media/pylpD8AoQCf3CQ1oO2/200w.gif?cid=82a1493bgros9ctztz9z4z63arib3oxn7ogvofrlebwqoa9j&rid=200w.gif" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: white">
+                        About OpenHome
+                    </h3>
+                    </p>
+                    </center>
+                </html> '''
+
+
 if __name__ == '__main__':
+        # Create MQTT client and connect to broker
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = handler
+
+    client.connect("localhost", 1883)
+    client.loop_forever()
     run(host='0.0.0.0', port=7070)
-'+
