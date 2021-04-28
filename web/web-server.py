@@ -335,7 +335,7 @@ def config():
                             </div>
                             <div class="links">
                                 <br><br>
-                                <a href="/" style="font-family: Helvetica;color: navy">Return Home</a>
+                                <a href="/config" style="font-family: Helvetica;color: black">Return Home</a>
                             </div>
                         </div>
                     </body>
@@ -387,9 +387,9 @@ def weather_success():
                             </div>
                             <div class="forms">
                                 <h4 style="font-family: Helvetica;color: black">Weather App Setup</h4>
-                                <p style="font-family: Helvetica;color: balck">Your Location has been set. Thank You!</p>
+                                <p style="font-family: Helvetica;color: black">Your Location has been set. Thank You!</p>
                             <div class="links">
-                                <a href="/config">Back</a>
+                                <a href="/config" style="font-family: Helvetica;color: black">>Back</a>
                             </div>
                         </div>
                     </body>
@@ -460,7 +460,7 @@ def hue_success():
                     </center>
                 </html> '''
 
-#spotify redirect
+# Spotify redirect
 @post('/config/spotify/redirect')
 def spotify_redirect():
     global auth_url
@@ -470,36 +470,45 @@ def spotify_redirect():
                 <html lang="en">
                     <center>
                     <head>
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                         <style>
                             img {
                               border-radius: 50%;
                             }
+                            h2 {
+                                font-size: xx-large;
+                            }
                         </style>
+
                         <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                         <title>OpenHome</title>
                         <meta name="description" content="The web interface for your OpenHome!">
                         <meta name="author" content="OpenHome">
                     </head>
-                    <body style="background-color:rgb(84,134,191);">
+
+                    <body style="background-color:white;">
                         <script src="index.js"></script>
                         <div class="body">
                             <div class="header">
-                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                                <br>
+                                <h2 style="font-family: Helvetica;color: black; font-weight: bold; font-size: 1000">OpenHome Setup Page</h2>
                             </div>
                             <div class="forms">
-                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
-                                <p style="font-family: Helvetica;color: white">Your Spotify account is set up.</p>
+                                <h4 style="font-family: Helvetica;color: black">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: black">You are being redirected to Spotify...</p>
                             <div class="links">
-                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                                <a href="/config" style="font-family: Helvetica;color: black">Back</a>
                             </div>
                         </div>
                     </body>
                     <br></br>
-                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
-                    <h3 style="font-family: Helvetica;color: white">
+                    <img src="https://i.pinimg.com/originals/27/bd/cd/27bdcd7ca450b4778e9ee999c5d8cf88.gif" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: black; font-weight: bold">
                         About OpenHome
                     </h3>
-                    <p style="font-family: Helvetica;color: white">
+                    <p style="font-family: Helvetica;color: black">
+                        <br>
                         Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
                         It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
                     </p>
@@ -522,32 +531,40 @@ def hue_success():
                             img {
                               border-radius: 50%;
                             }
+                            h2 {
+                                font-size: xx-large;
+                            }
                         </style>
+
                         <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                         <title>OpenHome</title>
                         <meta name="description" content="The web interface for your OpenHome!">
                         <meta name="author" content="OpenHome">
                     </head>
-                    <body style="background-color:rgb(84,134,191);">
+
+                    <body style="background-color:white;">
                         <script src="index.js"></script>
                         <div class="body">
                             <div class="header">
-                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
+                                <br>
+                                <h2 style="font-family: Helvetica;color: black; font-weight: bold; font-size: 1000">OpenHome Setup Page</h2>
                             </div>
                             <div class="forms">
-                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
-                                <p style="font-family: Helvetica;color: white">Your Spotify account is set up.</p>
+                                <h4 style="font-family: Helvetica;color: black">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: black">Your Spotify account is set up.</p>
                             <div class="links">
-                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
+                                <a href="/config" style="font-family: Helvetica;color: black">Back</a>
                             </div>
                         </div>
                     </body>
                     <br></br>
-                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
-                    <h3 style="font-family: Helvetica;color: white">
+                    <img src="https://i.pinimg.com/originals/27/bd/cd/27bdcd7ca450b4778e9ee999c5d8cf88.gif" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: black; font-weight: bold">
                         About OpenHome
                     </h3>
-                    <p style="font-family: Helvetica;color: white">
+                    <p style="font-family: Helvetica;color: black">
+                        <br>
                         Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
                         It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
                     </p>
@@ -561,50 +578,50 @@ def spotify_error():
                 <html lang="en">
                     <center>
                     <head>
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                         <style>
                             img {
                               border-radius: 50%;
+                            }
                             h2 {
-                              font-size: xx-large;
+                                font-size: xx-large;
                             }
                         </style>
+
                         <meta charset="utf-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                         <title>OpenHome</title>
                         <meta name="description" content="The web interface for your OpenHome!">
                         <meta name="author" content="OpenHome">
                     </head>
-                    <body style="background-color:rgb(84,134,191);">
-                    <body style="background-color: white);">
+
+                    <body style="background-color:white;">
                         <script src="index.js"></script>
                         <div class="body">
                             <div class="header">
-                                <h2 style="font-family: Helvetica;color: white">OpenHome Setup Page</h2>
                                 <br>
-                                <h2 style="font-family: Helvetica;color: black; font-weight: bold; font-size: 1000">
-                                    OpenHome Setup Page
-                                </h2>
+                                <h2 style="font-family: Helvetica;color: black; font-weight: bold; font-size: 1000">OpenHome Setup Page</h2>
                             </div>
                             <div class="forms">
-                                <h4 style="font-family: Helvetica;color: white">Spotify Setup</h4>
-                                <p style="font-family: Helvetica;color: white">Your Spotify account could not be set up.</p>
-                                <h4 style="font-family: Helvetica;color: black">Hue App Setup</h4>
-                                <p style="font-family: Helvetica;color: black">Your Hue Bridge has been connected. Thank You!</p>
+                                <h4 style="font-family: Helvetica;color: black">Spotify Setup</h4>
+                                <p style="font-family: Helvetica;color: black">Your Spotify could not be set up.</p>
                             <div class="links">
-                                <a href="/config" style="font-family: Helvetica;color: white">Back</a>
-                                <a href="/config" style="font-family: Helvetica;color: navy">Back</a>
+                                <a href="/config" style="font-family: Helvetica;color: black">Back</a>
                             </div>
                         </div>
                     </body>
                     <br></br>
-                    <img src="https://i.pinimg.com/originals/f9/f0/3f/f9f03f866e01bdf1220ab4a1f361723a.png" height="200" alt="OpenHome Visual">
-                    <img src="https://media4.giphy.com/media/pylpD8AoQCf3CQ1oO2/200w.gif?cid=82a1493bgros9ctztz9z4z63arib3oxn7ogvofrlebwqoa9j&rid=200w.gif" height="200" alt="OpenHome Visual">
-                    <h3 style="font-family: Helvetica;color: white">
+                    <img src="https://lh3.googleusercontent.com/proxy/QKlLBSVAomLEHJvM0SKDuW4E4NGQEkWcD3l17silm3mOz5VMeu5zJoIgIZzNKZJZKJdnKZ3f62tLPFbiqyyHO5fkjvjnwVM" height="200" alt="OpenHome Visual">
+                    <h3 style="font-family: Helvetica;color: black; font-weight: bold">
                         About OpenHome
                     </h3>
+                    <p style="font-family: Helvetica;color: black">
+                        <br>
+                        Open-source developer friendly alternative to corporate owned smart speakers.<br></br>
+                        It’s easy to expand with widgets and plugins and helps keep your data secure.<br></br>
                     </p>
                     </center>
-                </html> '''
+                </html>'''
 
 
 if __name__ == '__main__':
