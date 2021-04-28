@@ -1,6 +1,9 @@
 import paho.mqtt.client as mqtt
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import os
+
+auth_manager = None
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe("openhome/spotify")
@@ -43,10 +46,16 @@ def skip(args):
 def rewind(args):
     sp.seek_track(0, device_id=device_id)
 
+def on_auth(args):
+    global auth_manager
+    auth_manager.get_access_token(args[0])
+    
+
 functions = {"play": play,
              "pause": pause,
              "skip": skip,
-             "rewind": rewind}
+             "rewind": rewind,
+             "on_auth": on_auth}
 
 def handler(client, userdata, msg):
     msgSplit = str(msg.payload.decode("utf-8")).split("&")
@@ -81,9 +90,13 @@ if __name__ == '__main__':
     resp = '&'.join(strings)
     client.publish("openhome/controller", resp)
     
-    #sp = spotipy.Spotify(auth_manager=auth_manager)
+    while '.cache' not in os.listdir():
+        continue
+
+    print("Spotify Authorized")
+    sp = spotipy.Spotify(auth_manager=auth_manager)
     # Get device
-    #res = sp.devices()
-    #device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
+    res = sp.devices()
+    device_id = [dev['id'] for dev in res['devices'] if dev['name'] == 'Web Player (Chrome)'][0]
 
     client.loop_forever()
