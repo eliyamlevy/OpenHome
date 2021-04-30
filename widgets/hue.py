@@ -63,6 +63,7 @@ def set_color(args):
 
 def bridge_connect(args):
     global s
+    print(args)
     if len(args) == 0:
         ip_address = None
     else:

@@ -325,7 +325,7 @@ def config():
                                 <h4 style="font-family: Helvetica;color: navy">Hue Bridge Setup</h4>
                                 <p style="font-family: Helvetica;color: navy">Please input the ip address of your Hue bridge and press the center button on the bridge before pressing submit</p>
                                 <form method="POST" action="/config/hue/success">
-                                    <input name="IP Address" type="text" placeholder="Enter location"/> <br>
+                                    <input name="ip_address" type="text" placeholder="Enter location"/> <br>
                                     <br>
                                     <input id="submit" type="submit" class="btn btn-primary btn-lg"/>
                                 </form>
@@ -409,7 +409,7 @@ def weather_success():
 @post('/config/hue/success')
 def hue_success():
     ip = request.forms.get('ip_address')
-    cmd = "resp&webserver&config&light&" + ip
+    cmd = "resp&webserver&config&hue&" + ip
     publish.single("openhome/controller", cmd)
     return '''<!DOCTYPE html>
                 <html lang="en">
